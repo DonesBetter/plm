@@ -33,40 +33,40 @@ public class ItemServiceImpl implements ItemService{
     /**
      * 分页查询
      *
-     * @param ItemDO 筛选条件
+     * @param item 筛选条件
      * @param current 当前页码
      * @param size  每页大小
      * @return
      */
-    public Page<ItemDO> paginQuery(ItemDO ItemDO, long current, long size){
+    public Page<ItemDO> paginQuery(ItemDO item, long current, long size){
         //1. 构建动态查询条件
         LambdaQueryWrapper<ItemDO> queryWrapper = new LambdaQueryWrapper<>();
-        if(StrUtil.isNotBlank(ItemDO.getItemCode())){
-            queryWrapper.eq(ItemDO::getItemCode, ItemDO.getItemCode());
+        if(StrUtil.isNotBlank(item.getItemCode())){
+            queryWrapper.eq(ItemDO::getItemCode, item.getItemCode());
         }
-        if(StrUtil.isNotBlank(ItemDO.getVersion())){
-            queryWrapper.eq(ItemDO::getVersion, ItemDO.getVersion());
+        if(StrUtil.isNotBlank(item.getVersion())){
+            queryWrapper.eq(ItemDO::getVersion, item.getVersion());
         }
-        if(StrUtil.isNotBlank(ItemDO.getName())){
-            queryWrapper.eq(ItemDO::getName, ItemDO.getName());
+        if(StrUtil.isNotBlank(item.getName())){
+            queryWrapper.eq(ItemDO::getName, item.getName());
         }
-        if(StrUtil.isNotBlank(ItemDO.getMaterial())){
-            queryWrapper.eq(ItemDO::getMaterial, ItemDO.getMaterial());
+        if(StrUtil.isNotBlank(item.getMaterial())){
+            queryWrapper.eq(ItemDO::getMaterial, item.getMaterial());
         }
-        if(StrUtil.isNotBlank(ItemDO.getCount())){
-            queryWrapper.eq(ItemDO::getCount, ItemDO.getCount());
+        if(StrUtil.isNotBlank(item.getCount())){
+            queryWrapper.eq(ItemDO::getCount, item.getCount());
         }
-        if(StrUtil.isNotBlank(ItemDO.getUnit())){
-            queryWrapper.eq(ItemDO::getUnit, ItemDO.getUnit());
+        if(StrUtil.isNotBlank(item.getUnit())){
+            queryWrapper.eq(ItemDO::getUnit, item.getUnit());
         }
-        if(StrUtil.isNotBlank(ItemDO.getIcon())){
-            queryWrapper.eq(ItemDO::getIcon, ItemDO.getIcon());
+        if(StrUtil.isNotBlank(item.getIcon())){
+            queryWrapper.eq(ItemDO::getIcon, item.getIcon());
         }
-        if(StrUtil.isNotBlank(ItemDO.getCreator())){
-            queryWrapper.eq(ItemDO::getCreator, ItemDO.getCreator());
+        if(StrUtil.isNotBlank(item.getCreator())){
+            queryWrapper.eq(ItemDO::getCreator, item.getCreator());
         }
-        if(StrUtil.isNotBlank(ItemDO.getUpdater())){
-            queryWrapper.eq(ItemDO::getUpdater, ItemDO.getUpdater());
+        if(StrUtil.isNotBlank(item.getUpdater())){
+            queryWrapper.eq(ItemDO::getUpdater, item.getUpdater());
         }
         //2. 执行分页查询
         Page<ItemDO> pagin = new Page<>(current , size , true);
@@ -92,47 +92,47 @@ public class ItemServiceImpl implements ItemService{
     /**
      * 更新数据
      *
-     * @param ItemDO 实例对象
+     * @param item 实例对象
      * @return 实例对象
      */
-    public ItemDO update(ItemDO ItemDO){
+    public ItemDO update(ItemDO item){
         //1. 根据条件动态更新
         LambdaUpdateChainWrapper<ItemDO> chainWrapper = new LambdaUpdateChainWrapper<ItemDO>(ItemDOMapper);
-        if(StrUtil.isNotBlank(ItemDO.getItemCode())){
-            chainWrapper.eq(ItemDO::getItemCode, ItemDO.getItemCode());
+        if(StrUtil.isNotBlank(item.getItemCode())){
+            chainWrapper.eq(ItemDO::getItemCode, item.getItemCode());
         }
-        if(StrUtil.isNotBlank(ItemDO.getVersion())){
-            chainWrapper.eq(ItemDO::getVersion, ItemDO.getVersion());
+        if(StrUtil.isNotBlank(item.getVersion())){
+            chainWrapper.eq(ItemDO::getVersion, item.getVersion());
         }
-        if(StrUtil.isNotBlank(ItemDO.getName())){
-            chainWrapper.eq(ItemDO::getName, ItemDO.getName());
+        if(StrUtil.isNotBlank(item.getName())){
+            chainWrapper.eq(ItemDO::getName, item.getName());
         }
-        if(StrUtil.isNotBlank(ItemDO.getMaterial())){
-            chainWrapper.eq(ItemDO::getMaterial, ItemDO.getMaterial());
+        if(StrUtil.isNotBlank(item.getMaterial())){
+            chainWrapper.eq(ItemDO::getMaterial, item.getMaterial());
         }
-        if(StrUtil.isNotBlank(ItemDO.getCount())){
-            chainWrapper.eq(ItemDO::getCount, ItemDO.getCount());
+        if(StrUtil.isNotBlank(item.getCount())){
+            chainWrapper.eq(ItemDO::getCount, item.getCount());
         }
-        if(StrUtil.isNotBlank(ItemDO.getUnit())){
-            chainWrapper.eq(ItemDO::getUnit, ItemDO.getUnit());
+        if(StrUtil.isNotBlank(item.getUnit())){
+            chainWrapper.eq(ItemDO::getUnit, item.getUnit());
         }
-        if(StrUtil.isNotBlank(ItemDO.getIcon())){
-            chainWrapper.eq(ItemDO::getIcon, ItemDO.getIcon());
+        if(StrUtil.isNotBlank(item.getIcon())){
+            chainWrapper.eq(ItemDO::getIcon, item.getIcon());
         }
-        if(StrUtil.isNotBlank(ItemDO.getCreator())){
-            chainWrapper.eq(ItemDO::getCreator, ItemDO.getCreator());
+        if(StrUtil.isNotBlank(item.getCreator())){
+            chainWrapper.eq(ItemDO::getCreator, item.getCreator());
         }
-        if(StrUtil.isNotBlank(ItemDO.getUpdater())){
-            chainWrapper.eq(ItemDO::getUpdater, ItemDO.getUpdater());
+        if(StrUtil.isNotBlank(item.getUpdater())){
+            chainWrapper.eq(ItemDO::getUpdater, item.getUpdater());
         }
         //2. 设置主键，并更新
-        chainWrapper.set(ItemDO::getId, ItemDO.getId());
+        chainWrapper.set(ItemDO::getId, item.getId());
         boolean ret = chainWrapper.update();
         //3. 更新成功了，查询最最对象返回
         if(ret){
-            return queryById(ItemDO.getId());
+            return queryById(item.getId());
         }else{
-            return ItemDO;
+            return item;
         }
     }
 

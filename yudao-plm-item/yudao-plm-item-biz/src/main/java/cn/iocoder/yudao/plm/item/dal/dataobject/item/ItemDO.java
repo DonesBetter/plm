@@ -65,31 +65,5 @@ public class ItemDO extends TenantBaseDO implements Serializable, Cloneable {
      */
     @ApiModelProperty(name = "图标", notes = "")
     private String icon;
-    /**
-     * 创建人
-     */
-    @ApiModelProperty(name = "创建人", notes = "")
-    private String creator;
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(name = "创建时间", notes = "")
-    private Date createTime;
-    /**
-     * 更新人
-     */
-    @ApiModelProperty(name = "更新人", notes = "")
-    private String updater;
-    /**
-     * 更新时间
-     */
-    @ApiModelProperty(name = "更新时间", notes = "")
-    private Date updateTime;
-    /**
-     * 是否删除
-     */
-    @ApiModelProperty(name = "是否删除", notes = "")
-    private Integer deleted;
-
 
 }
