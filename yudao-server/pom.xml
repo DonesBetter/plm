@@ -23,7 +23,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.iocoder.boot</groupId>
-            <artifactId>yudao-plm-item-biz</artifactId>
+            <artifactId>yudao-module-plm-item-biz</artifactId>
             <version>${revision}</version>
         </dependency>
         <dependency>
