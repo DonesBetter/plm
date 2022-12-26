@@ -1,52 +1,76 @@
 package cn.iocoder.yudao.plm.item.service.item;
 
-import cn.iocoder.yudao.plm.item.dal.dataobject.item.ItemDO;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
+import cn.iocoder.yudao.plm.item.controller.admin.item.vo.ItemCreateReqVO;
+import cn.iocoder.yudao.plm.item.controller.admin.item.vo.ItemExportReqVO;
+import cn.iocoder.yudao.plm.item.controller.admin.item.vo.ItemPageReqVO;
+import cn.iocoder.yudao.plm.item.controller.admin.item.vo.ItemUpdateReqVO;
+import cn.iocoder.yudao.plm.item.dal.dataobject.item.ItemDO;
+
+import javax.validation.Valid;
+import java.util.Collection;
+import java.util.List;
 
 /**
- * 物料表;(plm_item)表服务接口
- * @author : http://www.chiner.pro
- * @date : 2022-12-26
+ * 物料 Service 接口
+ *
+ * @author 洋芋
  */
-public interface ItemService{
+public interface ItemService {
 
     /**
-     * 通过ID查询单条数据
+     * 创建物料
      *
-     * @param id 主键
-     * @return 实例对象
+     * @param createReqVO 创建信息
+     * @return 编号
      */
-    ItemDO queryById(Long id);
+    Long createItem(@Valid ItemCreateReqVO createReqVO);
 
     /**
-     * 分页查询
+     * 更新物料
      *
-     * @param ItemDO 筛选条件
-     * @param current 当前页码
-     * @param size  每页大小
-     * @return
+     * @param updateReqVO 更新信息
      */
-    Page<ItemDO> paginQuery(ItemDO ItemDO, long current, long size);
+    void updateItem(@Valid ItemUpdateReqVO updateReqVO);
+
     /**
-     * 新增数据
+     * 删除物料
      *
-     * @param ItemDO 实例对象
-     * @return 实例对象
+     * @param id 编号
      */
-    ItemDO insert(ItemDO ItemDO);
+    void deleteItem(Long id);
+
     /**
-     * 更新数据
+     * 获得物料
      *
-     * @param ItemDO 实例对象
-     * @return 实例对象
+     * @param id 编号
+     * @return 物料
      */
-    ItemDO update(ItemDO ItemDO);
+    ItemDO getItem(Long id);
+
     /**
-     * 通过主键删除数据
+     * 获得物料列表
      *
-     * @param id 主键
-     * @return 是否成功
+     * @param ids 编号
+     * @return 物料列表
      */
-    boolean deleteById(Long id);
+    List<ItemDO> getItemList(Collection<Long> ids);
+
+    /**
+     * 获得物料分页
+     *
+     * @param pageReqVO 分页查询
+     * @return 物料分页
+     */
+    PageResult<ItemDO> getItemPage(ItemPageReqVO pageReqVO);
+
+    /**
+     * 获得物料列表, 用于 Excel 导出
+     *
+     * @param exportReqVO 查询条件
+     * @return 物料列表
+     */
+    List<ItemDO> getItemList(ItemExportReqVO exportReqVO);
+
 }

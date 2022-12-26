@@ -1,27 +1,46 @@
 package cn.iocoder.yudao.plm.item.dal.mysql.item;
 
+import java.util.*;
+
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
+import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.plm.item.dal.dataobject.item.ItemDO;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Constants;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import cn.iocoder.yudao.plm.item.controller.admin.item.vo.*;
 
 /**
- * 物料表;(plm_item)表数据库访问层
+ * 物料 Mapper
  *
- * @author : http://www.chiner.pro
- * @date : 2022-12-26
+ * @author 洋芋
  */
 @Mapper
-public interface ItemMapper extends BaseMapper<ItemDO> {
-    /**
-     * 分页查询指定行数据
-     *
-     * @param page    分页参数
-     * @param wrapper 动态查询条件
-     * @return 分页对象列表
-     */
-    IPage<ItemDO> selectByPage(IPage<ItemDO> page, @Param(Constants.WRAPPER) Wrapper<ItemDO> wrapper);
+public interface ItemMapper extends BaseMapperX<ItemDO> {
+
+    default PageResult<ItemDO> selectPage(ItemPageReqVO reqVO) {
+        return selectPage(reqVO, new LambdaQueryWrapperX<ItemDO>()
+                .eqIfPresent(ItemDO::getItemCode, reqVO.getItemCode())
+                .eqIfPresent(ItemDO::getVersion, reqVO.getVersion())
+                .likeIfPresent(ItemDO::getName, reqVO.getName())
+                .eqIfPresent(ItemDO::getMaterial, reqVO.getMaterial())
+                .eqIfPresent(ItemDO::getCount, reqVO.getCount())
+                .eqIfPresent(ItemDO::getUnit, reqVO.getUnit())
+                .eqIfPresent(ItemDO::getIcon, reqVO.getIcon())
+                .betweenIfPresent(ItemDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(ItemDO::getId));
+    }
+
+    default List<ItemDO> selectList(ItemExportReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<ItemDO>()
+                .eqIfPresent(ItemDO::getItemCode, reqVO.getItemCode())
+                .eqIfPresent(ItemDO::getVersion, reqVO.getVersion())
+                .likeIfPresent(ItemDO::getName, reqVO.getName())
+                .eqIfPresent(ItemDO::getMaterial, reqVO.getMaterial())
+                .eqIfPresent(ItemDO::getCount, reqVO.getCount())
+                .eqIfPresent(ItemDO::getUnit, reqVO.getUnit())
+                .eqIfPresent(ItemDO::getIcon, reqVO.getIcon())
+                .betweenIfPresent(ItemDO::getCreateTime, reqVO.getCreateTime())
+                .orderByDesc(ItemDO::getId));
+    }
+
 }
