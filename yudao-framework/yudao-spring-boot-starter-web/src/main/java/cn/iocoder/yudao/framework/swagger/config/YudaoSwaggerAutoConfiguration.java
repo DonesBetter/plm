@@ -53,6 +53,7 @@ public class YudaoSwaggerAutoConfiguration {
                 .select()
                 .apis(basePackage(properties.getBasePackage()))
 //                .apis(basePackage("cn.iocoder.yudao.module.system")) // 可用于 swagger 无法展示时使用
+//                .apis(basePackage("cn.iocoder.yudao.plm.item")) // 可用于 swagger 无法展示时使用
                 .paths(PathSelectors.any())
                 .build()
                 // ③ 安全上下文（认证）
