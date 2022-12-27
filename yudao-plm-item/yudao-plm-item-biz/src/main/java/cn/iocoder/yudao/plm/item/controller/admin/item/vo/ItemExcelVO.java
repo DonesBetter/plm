@@ -56,7 +56,7 @@ public class ItemExcelVO {
     private String picUrl;
 
     @ExcelProperty("状态;0-启用，1-停用")
-    private Boolean status;
+    private Integer status;
 
     @ExcelProperty("创建时间")
     private LocalDateTime createTime;

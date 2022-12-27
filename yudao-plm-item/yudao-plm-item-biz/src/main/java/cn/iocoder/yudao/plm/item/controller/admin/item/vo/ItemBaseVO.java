@@ -1,14 +1,10 @@
 package cn.iocoder.yudao.plm.item.controller.admin.item.vo;
 
-import lombok.*;
-import java.util.*;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.LocalDateTime;
-import io.swagger.annotations.*;
-import javax.validation.constraints.*;
 
 /**
 * 物料 Base VO，提供给添加、修改、详细的子 VO 使用
@@ -57,6 +53,6 @@ public class ItemBaseVO {
 
     @ApiModelProperty(value = "状态;0-启用，1-停用", required = true)
     @NotNull(message = "状态;0-启用，1-停用不能为空")
-    private Boolean status;
+    private Integer status;
 
 }

@@ -77,6 +77,6 @@ public class ItemDO extends BaseDO {
     /**
      * 状态;0-启用，1-停用
      */
-    private Boolean status;
+    private Integer status;
 
 }
