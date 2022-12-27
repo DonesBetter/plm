@@ -45,6 +45,18 @@
       </el-col>
 
       <el-col :span="12">
+        <el-form-item prop="modulePackage">
+          <span slot="label">
+            模块包名
+            <el-tooltip content="模块包名，可以自定义模块包名，如 module plm" placement="top">
+              <i class="el-icon-question"></i>
+            </el-tooltip>
+          </span>
+          <el-input v-model="info.modulePackage" />
+        </el-form-item>
+      </el-col>
+
+      <el-col :span="12">
         <el-form-item prop="businessName">
           <span slot="label">
             业务名
@@ -262,6 +274,9 @@ export default {
         // ],
         moduleName: [
           { required: true, message: "请输入生成模块名", trigger: "blur" }
+        ],
+        modulePackage: [
+          { required: true, message: "请输入生成模块包名", trigger: "blur" }
         ],
         businessName: [
           { required: true, message: "请输入生成业务名", trigger: "blur" }

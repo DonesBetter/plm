@@ -184,6 +184,7 @@ public class CodegenEngine {
         // table 包含的字段
         CodegenTableDO table = (CodegenTableDO) bindingMap.get("table");
         filePath = StrUtil.replace(filePath, "${table.moduleName}", table.getModuleName());
+        filePath = StrUtil.replace(filePath, "${table.modulePackage}", table.getModulePackage());
         filePath = StrUtil.replace(filePath, "${table.businessName}", table.getBusinessName());
         filePath = StrUtil.replace(filePath, "${table.className}", table.getClassName());
         return filePath;
@@ -216,14 +217,14 @@ public class CodegenEngine {
     }
 
     private static String javaModuleFilePath(String path, String module, String src) {
-        return "yudao-module-${table.moduleName}/" + // 顶级模块
-                "yudao-module-${table.moduleName}-" + module + "/" + // 子模块
-                "src/" + src + "/java/${basePackage}/module/${table.moduleName}/" + path + ".java";
+        return "yudao-${table.modulePackage}-${table.moduleName}/" + // 顶级模块
+                "yudao-${table.modulePackage}-${table.moduleName}-" + module + "/" + // 子模块
+                "src/" + src + "/java/${basePackage}/${table.modulePackage}/${table.moduleName}/" + path + ".java";
     }
 
     private static String mapperXmlFilePath() {
-        return "yudao-module-${table.moduleName}/" + // 顶级模块
-                "yudao-module-${table.moduleName}-biz/" + // 子模块
+        return "yudao-${table.modulePackage}-${table.moduleName}/" + // 顶级模块
+                "yudao-${table.modulePackage}-${table.moduleName}-biz/" + // 子模块
                 "src/main/resources/mapper/${table.businessName}/${table.className}Mapper.xml";
     }
 

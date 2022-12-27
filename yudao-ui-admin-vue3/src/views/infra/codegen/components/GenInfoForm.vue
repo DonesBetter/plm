@@ -21,6 +21,7 @@ const rules = reactive({
   templateType: [required],
   scene: [required],
   moduleName: [required],
+  modulePackage: [required],
   businessName: [required],
   businessPackage: [required],
   className: [required],

@@ -1,9 +1,9 @@
-package ${basePackage}.module.${table.moduleName}.service.${table.businessName};
+package ${basePackage}.${table.modulePackage}.${table.moduleName}.service.${table.businessName};
 
 import java.util.*;
 import javax.validation.*;
-import ${basePackage}.module.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName}.vo.*;
-import ${basePackage}.module.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
+import ${basePackage}.${table.modulePackage}.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName}.vo.*;
+import ${basePackage}.${table.modulePackage}.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
 import ${PageResultClassName};
 
 /**

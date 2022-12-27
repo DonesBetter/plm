@@ -8,6 +8,7 @@ export type CodegenTableVO = {
   tableComment: string
   remark: string
   moduleName: string
+  modulePackage: string
   businessName: string
   className: string
   classComment: string

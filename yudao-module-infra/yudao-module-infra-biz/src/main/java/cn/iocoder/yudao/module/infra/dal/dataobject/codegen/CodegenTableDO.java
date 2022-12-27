@@ -64,6 +64,12 @@ public class CodegenTableDO extends BaseDO {
      */
     private String moduleName;
     /**
+     * 模块包名，可以自定义模块包名，如 plm
+     *
+     * 默认值： module
+     */
+    private String modulePackage = "module";
+    /**
      * 业务名，即二级目录
      *
      * 例如说，user、permission、dict 等等

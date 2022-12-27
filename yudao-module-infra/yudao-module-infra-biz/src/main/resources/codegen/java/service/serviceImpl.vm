@@ -1,19 +1,19 @@
-package ${basePackage}.module.${table.moduleName}.service.${table.businessName};
+package ${basePackage}.${table.modulePackage}.${table.moduleName}.service.${table.businessName};
 
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
-import ${basePackage}.module.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName}.vo.*;
-import ${basePackage}.module.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
+import ${basePackage}.${table.modulePackage}.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName}.vo.*;
+import ${basePackage}.${table.modulePackage}.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
 import ${PageResultClassName};
 
-import ${basePackage}.module.${table.moduleName}.convert.${table.businessName}.${table.className}Convert;
-import ${basePackage}.module.${table.moduleName}.dal.mysql.${table.businessName}.${table.className}Mapper;
+import ${basePackage}.${table.modulePackage}.${table.moduleName}.convert.${table.businessName}.${table.className}Convert;
+import ${basePackage}.${table.modulePackage}.${table.moduleName}.dal.mysql.${table.businessName}.${table.className}Mapper;
 
 import static ${ServiceExceptionUtilClassName}.exception;
-import static ${basePackage}.module.${table.moduleName}.enums.ErrorCodeConstants.*;
+import static ${basePackage}.${table.modulePackage}.${table.moduleName}.enums.ErrorCodeConstants.*;
 
 /**
  * ${table.classComment} Service 实现类

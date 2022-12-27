@@ -31,6 +31,10 @@ public class CodegenTableBaseVO {
     @NotNull(message = "模块名不能为空")
     private String moduleName;
 
+    @ApiModelProperty(value = "模块包名", required = true, example = "module")
+    @NotNull(message = "模块包名不能为空")
+    private String modulePackage;
+
     @ApiModelProperty(value = "业务名", required = true, example = "codegen")
     @NotNull(message = "业务名不能为空")
     private String businessName;

@@ -1,4 +1,4 @@
-package ${basePackage}.module.${table.moduleName}.convert.${table.businessName};
+package ${basePackage}.${table.modulePackage}.${table.moduleName}.convert.${table.businessName};
 
 import java.util.*;
 
@@ -6,8 +6,8 @@ import ${PageResultClassName};
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import ${basePackage}.module.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName}.vo.*;
-import ${basePackage}.module.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
+import ${basePackage}.${table.modulePackage}.${table.moduleName}.controller.${sceneEnum.basePackage}.${table.businessName}.vo.*;
+import ${basePackage}.${table.modulePackage}.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
 
 /**
  * ${table.classComment} Convert
