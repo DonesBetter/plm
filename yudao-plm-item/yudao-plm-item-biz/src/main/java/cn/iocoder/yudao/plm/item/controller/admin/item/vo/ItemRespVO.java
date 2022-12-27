@@ -1,8 +1,6 @@
 package cn.iocoder.yudao.plm.item.controller.admin.item.vo;
 
 import lombok.*;
-
-import java.time.LocalDateTime;
 import java.util.*;
 import io.swagger.annotations.*;
 
@@ -15,7 +13,7 @@ public class ItemRespVO extends ItemBaseVO {
     @ApiModelProperty(value = "id", required = true)
     private Long id;
 
-    @ApiModelProperty(value = "创建时间")
+    @ApiModelProperty(value = "创建时间", required = true)
     private LocalDateTime createTime;
 
 }

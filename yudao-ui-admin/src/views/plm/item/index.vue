@@ -3,26 +3,43 @@
 
     <!-- 搜索工作栏 -->
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="物料代码" prop="itemCode">
-        <el-input v-model="queryParams.itemCode" placeholder="请输入物料代码" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="物料编码" prop="itemCode">
+        <el-input v-model="queryParams.itemCode" placeholder="请输入物料编码" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="version" prop="version">
-        <el-input v-model="queryParams.version" placeholder="请输入version" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="物料版本" prop="version">
+        <el-input v-model="queryParams.version" placeholder="请输入物料版本" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="name" prop="name">
-        <el-input v-model="queryParams.name" placeholder="请输入name" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="物料名称" prop="name">
+        <el-input v-model="queryParams.name" placeholder="请输入物料名称" clearable @keyup.enter.native="handleQuery"/>
+      </el-form-item>
+      <el-form-item label="物料分类ID" prop="categoryId">
+        <el-input v-model="queryParams.categoryId" placeholder="请输入物料分类ID" clearable @keyup.enter.native="handleQuery"/>
+      </el-form-item>
+      <el-form-item label="物料分类代码" prop="categoryCode">
+        <el-input v-model="queryParams.categoryCode" placeholder="请输入物料分类代码" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="材料" prop="material">
         <el-input v-model="queryParams.material" placeholder="请输入材料" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="数量" prop="count">
-        <el-input v-model="queryParams.count" placeholder="请输入数量" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="成本" prop="cost">
+        <el-input v-model="queryParams.cost" placeholder="请输入成本" clearable @keyup.enter.native="handleQuery"/>
+      </el-form-item>
+      <el-form-item label="重量" prop="weight">
+        <el-input v-model="queryParams.weight" placeholder="请输入重量" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
       <el-form-item label="计量单位" prop="unit">
         <el-input v-model="queryParams.unit" placeholder="请输入计量单位" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
-        <el-input v-model="queryParams.icon" placeholder="请输入图标" clearable @keyup.enter.native="handleQuery"/>
+      <el-form-item label="库存" prop="stock">
+        <el-input v-model="queryParams.stock" placeholder="请输入库存" clearable @keyup.enter.native="handleQuery"/>
+      </el-form-item>
+      <el-form-item label="图标" prop="picUrl">
+        <el-input v-model="queryParams.picUrl" placeholder="请输入图标" clearable @keyup.enter.native="handleQuery"/>
+      </el-form-item>
+      <el-form-item label="状态;0-启用，1-停用" prop="status">
+        <el-select v-model="queryParams.status" placeholder="请选择状态;0-启用，1-停用" clearable size="small">
+          <el-option label="请选择字典生成" value="" />
+        </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
         <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss" type="daterange"
@@ -50,13 +67,18 @@
     <!-- 列表 -->
     <el-table v-loading="loading" :data="list">
       <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="物料代码" align="center" prop="itemCode" />
-      <el-table-column label="version" align="center" prop="version" />
-      <el-table-column label="name" align="center" prop="name" />
+      <el-table-column label="物料编码" align="center" prop="itemCode" />
+      <el-table-column label="物料版本" align="center" prop="version" />
+      <el-table-column label="物料名称" align="center" prop="name" />
+      <el-table-column label="物料分类ID" align="center" prop="categoryId" />
+      <el-table-column label="物料分类代码" align="center" prop="categoryCode" />
       <el-table-column label="材料" align="center" prop="material" />
-      <el-table-column label="数量" align="center" prop="count" />
+      <el-table-column label="成本" align="center" prop="cost" />
+      <el-table-column label="重量" align="center" prop="weight" />
       <el-table-column label="计量单位" align="center" prop="unit" />
-      <el-table-column label="图标" align="center" prop="icon" />
+      <el-table-column label="库存" align="center" prop="stock" />
+      <el-table-column label="图标" align="center" prop="picUrl" />
+      <el-table-column label="状态;0-启用，1-停用" align="center" prop="status" />
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
         <template v-slot="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -78,26 +100,43 @@
     <!-- 对话框(添加 / 修改) -->
     <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="物料代码" prop="itemCode">
-          <el-input v-model="form.itemCode" placeholder="请输入物料代码" />
+        <el-form-item label="物料编码" prop="itemCode">
+          <el-input v-model="form.itemCode" placeholder="请输入物料编码" />
         </el-form-item>
-        <el-form-item label="version" prop="version">
-          <el-input v-model="form.version" placeholder="请输入version" />
+        <el-form-item label="物料版本" prop="version">
+          <el-input v-model="form.version" placeholder="请输入物料版本" />
         </el-form-item>
-        <el-form-item label="name" prop="name">
-          <el-input v-model="form.name" placeholder="请输入name" />
+        <el-form-item label="物料名称" prop="name">
+          <el-input v-model="form.name" placeholder="请输入物料名称" />
+        </el-form-item>
+        <el-form-item label="物料分类ID" prop="categoryId">
+          <el-input v-model="form.categoryId" placeholder="请输入物料分类ID" />
+        </el-form-item>
+        <el-form-item label="物料分类代码" prop="categoryCode">
+          <el-input v-model="form.categoryCode" placeholder="请输入物料分类代码" />
         </el-form-item>
         <el-form-item label="材料" prop="material">
           <el-input v-model="form.material" placeholder="请输入材料" />
         </el-form-item>
-        <el-form-item label="数量" prop="count">
-          <el-input v-model="form.count" placeholder="请输入数量" />
+        <el-form-item label="成本" prop="cost">
+          <el-input v-model="form.cost" placeholder="请输入成本" />
+        </el-form-item>
+        <el-form-item label="重量" prop="weight">
+          <el-input v-model="form.weight" placeholder="请输入重量" />
         </el-form-item>
         <el-form-item label="计量单位" prop="unit">
           <el-input v-model="form.unit" placeholder="请输入计量单位" />
         </el-form-item>
-        <el-form-item label="图标" prop="icon">
-          <el-input v-model="form.icon" placeholder="请输入图标" />
+        <el-form-item label="库存" prop="stock">
+          <el-input v-model="form.stock" placeholder="请输入库存" />
+        </el-form-item>
+        <el-form-item label="图标" prop="picUrl">
+          <el-input v-model="form.picUrl" placeholder="请输入图标" />
+        </el-form-item>
+        <el-form-item label="状态;0-启用，1-停用" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio label="1">请选择字典生成</el-radio>
+          </el-radio-group>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -138,17 +177,27 @@ export default {
         itemCode: null,
         version: null,
         name: null,
+        categoryId: null,
+        categoryCode: null,
         material: null,
-        count: null,
+        cost: null,
+        weight: null,
         unit: null,
-        icon: null,
+        stock: null,
+        picUrl: null,
+        status: null,
         createTime: [],
       },
       // 表单参数
       form: {},
       // 表单校验
       rules: {
-        itemCode: [{ required: true, message: "物料代码不能为空", trigger: "blur" }],
+        itemCode: [{ required: true, message: "物料编码不能为空", trigger: "blur" }],
+        version: [{ required: true, message: "物料版本不能为空", trigger: "blur" }],
+        name: [{ required: true, message: "物料名称不能为空", trigger: "blur" }],
+        categoryId: [{ required: true, message: "物料分类ID不能为空", trigger: "blur" }],
+        categoryCode: [{ required: true, message: "物料分类代码不能为空", trigger: "blur" }],
+        status: [{ required: true, message: "状态;0-启用，1-停用不能为空", trigger: "blur" }],
       }
     };
   },
@@ -178,10 +227,15 @@ export default {
         itemCode: undefined,
         version: undefined,
         name: undefined,
+        categoryId: undefined,
+        categoryCode: undefined,
         material: undefined,
-        count: undefined,
+        cost: undefined,
+        weight: undefined,
         unit: undefined,
-        icon: undefined,
+        stock: undefined,
+        picUrl: undefined,
+        status: undefined,
       };
       this.resetForm("form");
     },
