@@ -108,13 +108,13 @@
 </template>
 
 <script>
-import { listDept, getDept, delDept, addDept, updateDept } from "@/api/system/dept";
-import Treeselect from "@riophae/vue-treeselect";
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import { addDept, delDept, getDept, listDept, updateDept } from '@/api/system/dept'
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
-import {CommonStatusEnum} from '@/utils/constants'
-import { getDictDatas, DICT_TYPE } from '@/utils/dict'
-import {listSimpleUsers} from "@/api/system/user";
+import { CommonStatusEnum } from '@/utils/constants'
+import { DICT_TYPE, getDictDatas } from '@/utils/dict'
+import { listSimpleUsers } from '@/api/system/user'
 
 export default {
   name: "Dept",
@@ -202,13 +202,11 @@ export default {
       if (node.children && !node.children.length) {
         delete node.children;
       }
-      let res={
+      return {
         id: node.id,
         label: node.name,
         children: node.children
-      }
-      console.log(res)
-      return res;
+      };
     },
     // 用户昵称展示
     userNicknameFormat(row, column) {
@@ -260,8 +258,6 @@ export default {
       this.title = "添加部门";
       listDept().then(response => {
 	        this.deptOptions = this.handleTree(response.data, "id");
-        console.log("this.deptOptions=")
-        console.log(this.deptOptions)
       });
     },
     /** 展开/折叠操作 */

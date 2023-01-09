@@ -6,6 +6,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
 import cn.iocoder.yudao.plm.item.dal.dataobject.category.CategoryDO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.apache.ibatis.annotations.Mapper;
 import cn.iocoder.yudao.plm.item.controller.admin.category.vo.*;
 
@@ -50,4 +51,11 @@ public interface CategoryMapper extends BaseMapperX<CategoryDO> {
                 .likeIfPresent(CategoryDO::getName, reqVO.getName())
                 .eqIfPresent(CategoryDO::getStatus, reqVO.getStatus()));
     }
+
+    default CategoryDO selectByParentIdAndName(Long parentId, String name) {
+        return selectOne(new LambdaQueryWrapper<CategoryDO>()
+                .eq(CategoryDO::getParentId, parentId)
+                .eq(CategoryDO::getName, name));
+    }
+
 }

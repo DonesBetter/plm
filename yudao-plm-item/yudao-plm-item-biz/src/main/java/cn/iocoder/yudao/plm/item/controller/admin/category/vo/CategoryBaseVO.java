@@ -15,7 +15,6 @@ import javax.validation.constraints.*;
 public class CategoryBaseVO {
 
     @ApiModelProperty(value = "父分类ID", required = true)
-    @NotNull(message = "父分类ID不能为空")
     private Long parentId;
 
     @ApiModelProperty(value = "父分类代码")

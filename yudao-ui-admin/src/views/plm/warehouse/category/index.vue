@@ -114,16 +114,16 @@
 <script>
 import {
   createCategory,
-  updateCategory,
   deleteCategory,
+  exportCategoryExcel,
   getCategory,
   getCategoryPage,
-  exportCategoryExcel,
-  listSimpleCategories
+  listSimpleCategories,
+  updateCategory
 } from '@/api/plm/item/category'
-import Treeselect from "@riophae/vue-treeselect";
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
-import Editor from '@/components/Editor';
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import Editor from '@/components/Editor'
 import { DICT_TYPE, getDictDatas } from '@/utils/dict'
 
 export default {
@@ -199,13 +199,11 @@ export default {
       if (node.children && !node.children.length) {
         delete node.children;
       }
-      let res={
+      return {
         id: node.id,
         label: node.name,
         children: node.children
-      }
-      console.log(res)
-      return res;
+      };
     },
     /** 取消按钮 */
     cancel() {
@@ -255,6 +253,9 @@ export default {
       const id = row.id;
       getCategory(id).then(response => {
         this.form = response.data;
+        if (this.form.parentId === 0) { // 无父部门时，标记为 undefined，避免展示为 Unknown
+          this.form.parentId = undefined;
+        }
         this.open = true;
         this.title = "修改物料分类";
       });

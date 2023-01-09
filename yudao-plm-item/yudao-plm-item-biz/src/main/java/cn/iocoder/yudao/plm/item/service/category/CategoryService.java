@@ -68,4 +68,13 @@ public interface CategoryService {
     List<CategoryDO> getCategoryList(CategoryExportReqVO exportReqVO);
 
     List<CategoryDO> getSimpleCategorys(CategoryListReqVO reqVO);
+
+    /**
+     * 获得所有子物料分类，从缓存中
+     *
+     * @param parentId 物料分类编号
+     * @param recursive 是否递归获取所有
+     * @return 子物料分类列表
+     */
+    List<CategoryDO> getCategorysByParentIdFromCache(Long parentId, boolean recursive);
 }
