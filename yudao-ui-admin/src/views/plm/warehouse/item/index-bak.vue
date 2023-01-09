@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import { createItem, updateItem, deleteItem, getItem, getItemPage, exportItemExcel } from "@/api/plm/item";
+import { createItem, updateItem, deleteItem, getItem, getItemPage, exportItemExcel } from "@/api/plm/item/item";
 
 export default {
   name: "Item",

@@ -1,6 +1,5 @@
 import { reactive } from 'vue'
 import { useI18n } from '@/hooks/web/useI18n'
-import { DICT_TYPE } from '@/utils/dict'
 import { required } from '@/utils/formRules'
 import { VxeCrudSchema, useVxeCrudSchemas } from '@/hooks/web/useVxeCrudSchemas'
 const { t } = useI18n() // 国际化
@@ -19,7 +18,6 @@ const crudSchemas = reactive<VxeCrudSchema>({
   action: true,
   actionWidth: '200', // 3个按钮默认200，如有删减对应增减即可
   columns: [
-    },
     {
       title: '父分类ID',
       field: 'parentId',

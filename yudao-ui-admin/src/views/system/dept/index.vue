@@ -202,11 +202,13 @@ export default {
       if (node.children && !node.children.length) {
         delete node.children;
       }
-      return {
+      let res={
         id: node.id,
         label: node.name,
         children: node.children
-      };
+      }
+      console.log(res)
+      return res;
     },
     // 用户昵称展示
     userNicknameFormat(row, column) {
@@ -258,6 +260,8 @@ export default {
       this.title = "添加部门";
       listDept().then(response => {
 	        this.deptOptions = this.handleTree(response.data, "id");
+        console.log("this.deptOptions=")
+        console.log(this.deptOptions)
       });
     },
     /** 展开/折叠操作 */
@@ -279,7 +283,7 @@ export default {
         this.open = true;
         this.title = "修改部门";
       });
-      listDept(row.id).then(response => {
+      listDept().then(response => {
 	        this.deptOptions = this.handleTree(response.data, "id");
       });
     },

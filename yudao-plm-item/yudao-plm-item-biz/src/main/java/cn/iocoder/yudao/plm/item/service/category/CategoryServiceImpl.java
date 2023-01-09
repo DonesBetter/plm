@@ -79,4 +79,9 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.selectList(exportReqVO);
     }
 
+    @Override
+    public List<CategoryDO> getSimpleCategorys(CategoryListReqVO reqVO) {
+        return categoryMapper.selectList(reqVO);
+    }
+
 }

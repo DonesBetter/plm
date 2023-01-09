@@ -45,4 +45,9 @@ public interface CategoryMapper extends BaseMapperX<CategoryDO> {
                 .orderByDesc(CategoryDO::getId));
     }
 
+    default List<CategoryDO> selectList(CategoryListReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<CategoryDO>()
+                .likeIfPresent(CategoryDO::getName, reqVO.getName())
+                .eqIfPresent(CategoryDO::getStatus, reqVO.getStatus()));
+    }
 }

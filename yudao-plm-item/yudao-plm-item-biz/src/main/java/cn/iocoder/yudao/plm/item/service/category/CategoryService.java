@@ -67,4 +67,5 @@ public interface CategoryService {
      */
     List<CategoryDO> getCategoryList(CategoryExportReqVO exportReqVO);
 
+    List<CategoryDO> getSimpleCategorys(CategoryListReqVO reqVO);
 }

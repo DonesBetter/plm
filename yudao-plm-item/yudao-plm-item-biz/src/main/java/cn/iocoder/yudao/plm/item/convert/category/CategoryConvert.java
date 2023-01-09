@@ -31,4 +31,6 @@ public interface CategoryConvert {
 
     List<CategoryExcelVO> convertList02(List<CategoryDO> list);
 
+    List<CategorySimpleRespVO> convertList03(List<CategoryDO> list);
+
 }

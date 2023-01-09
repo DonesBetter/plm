@@ -42,7 +42,13 @@ export function getCategoryPage(query) {
     params: query
   })
 }
-
+// 获取所有物料分类精简信息列表
+export function listSimpleCategories() {
+  return request({
+    url: '/item/category/list-all-simple',
+    method: 'get'
+  })
+}
 // 导出物料分类 Excel
 export function exportCategoryExcel(query) {
   return request({

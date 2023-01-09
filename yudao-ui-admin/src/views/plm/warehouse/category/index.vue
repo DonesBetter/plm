@@ -21,8 +21,8 @@
       <el-form-item label="排序" prop="sort">
         <el-input v-model="queryParams.sort" placeholder="请输入排序" clearable @keyup.enter.native="handleQuery"/>
       </el-form-item>
-      <el-form-item label="状态;0-启用，1-停用" prop="status">
-        <el-select v-model="queryParams.status" placeholder="请选择状态;0-启用，1-停用" clearable size="small">
+      <el-form-item label="状态" prop="status">
+        <el-select v-model="queryParams.status" placeholder="请选择状态" clearable size="small">
           <el-option label="请选择字典生成" value="" />
         </el-select>
       </el-form-item>
@@ -43,49 +43,43 @@
                    v-hasPermi="['item:category:create']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
+        <el-button type="info" plain icon="el-icon-sort" size="mini" @click="toggleExpandAll">展开/折叠</el-button>
+      </el-col>
+      <el-col :span="1.5">
         <el-button type="warning" plain icon="el-icon-download" size="mini" @click="handleExport" :loading="exportLoading"
                    v-hasPermi="['item:category:export']">导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <!-- 列表 -->
-    <el-table v-loading="loading" :data="list">
-      <el-table-column label="id" align="center" prop="id" />
-      <el-table-column label="父分类ID" align="center" prop="parentId" />
-      <el-table-column label="父分类代码" align="center" prop="parentCode" />
+    <el-table v-if="refreshTable" v-loading="loading" :data="list" row-key="id" :default-expand-all="isExpandAll"
+              :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
       <el-table-column label="分类代码" align="center" prop="categoryCode" />
       <el-table-column label="分类名称" align="center" prop="name" />
-      <el-table-column label="描述" align="center" prop="description" />
       <el-table-column label="图标" align="center" prop="picUrl" />
       <el-table-column label="排序" align="center" prop="sort" />
-      <el-table-column label="状态;0-启用，1-停用" align="center" prop="status" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="状态" align="center" prop="status" >
         <template v-slot="scope">
-          <span>{{ parseTime(scope.row.createTime) }}</span>
+          <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status"/>
         </template>
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template v-slot="scope">
           <el-button size="mini" type="text" icon="el-icon-edit" @click="handleUpdate(scope.row)"
-                     v-hasPermi="['item:category:update']">修改</el-button>
-          <el-button size="mini" type="text" icon="el-icon-delete" @click="handleDelete(scope.row)"
-                     v-hasPermi="['item:category:delete']">删除</el-button>
+                     v-hasPermi="['system:dept:update']">修改</el-button>
+          <el-button size="mini" type="text" icon="el-icon-plus" @click="handleAdd(scope.row)"
+                     v-hasPermi="['system:dept:create']">新增</el-button>
+          <el-button v-if="scope.row.parentId !== 0" size="mini" type="text" icon="el-icon-delete"
+                     @click="handleDelete(scope.row)" v-hasPermi="['system:dept:delete']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <!-- 分页组件 -->
-    <pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNo" :limit.sync="queryParams.pageSize"
-                @pagination="getList"/>
 
     <!-- 对话框(添加 / 修改) -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" v-dialogDrag append-to-body>
+    <el-dialog :title="title" :visible.sync="open" width="600px" v-dialogDrag append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="父分类ID" prop="parentId">
-          <el-input v-model="form.parentId" placeholder="请输入父分类ID" />
-        </el-form-item>
-        <el-form-item label="父分类代码" prop="parentCode">
-          <el-input v-model="form.parentCode" placeholder="请输入父分类代码" />
+        <el-form-item label="上级分类" prop="parentId">
+          <treeselect v-model="form.parentId" :options="categoryOptions" :normalizer="normalizer" placeholder="选择上级分类"/>
         </el-form-item>
         <el-form-item label="分类代码" prop="categoryCode">
           <el-input v-model="form.categoryCode" placeholder="请输入分类代码" />
@@ -102,9 +96,10 @@
         <el-form-item label="排序" prop="sort">
           <el-input v-model="form.sort" placeholder="请输入排序" />
         </el-form-item>
-        <el-form-item label="状态;0-启用，1-停用" prop="status">
+        <el-form-item label="状态" prop="status">
           <el-radio-group v-model="form.status">
-            <el-radio label="1">请选择字典生成</el-radio>
+            <el-radio v-for="dict in statusDictDatas" :key="parseInt(dict.value)" :label="parseInt(dict.value)">
+              {{dict.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -117,13 +112,25 @@
 </template>
 
 <script>
-import { createCategory, updateCategory, deleteCategory, getCategory, getCategoryPage, exportCategoryExcel } from "@/api/item/category";
+import {
+  createCategory,
+  updateCategory,
+  deleteCategory,
+  getCategory,
+  getCategoryPage,
+  exportCategoryExcel,
+  listSimpleCategories
+} from '@/api/plm/item/category'
+import Treeselect from "@riophae/vue-treeselect";
+import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 import Editor from '@/components/Editor';
+import { DICT_TYPE, getDictDatas } from '@/utils/dict'
 
 export default {
   name: "Category",
   components: {
     Editor,
+    Treeselect
   },
   data() {
     return {
@@ -133,14 +140,19 @@ export default {
       exportLoading: false,
       // 显示搜索条件
       showSearch: true,
-      // 总条数
-      total: 0,
       // 物料分类列表
       list: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
       open: false,
+      // 重新渲染表格状态
+      refreshTable: true,
+      // 是否展开，默认全部展开
+      isExpandAll: true,
+      // 分类树选项
+      categoryOptions: [],
+
       // 查询参数
       queryParams: {
         pageNo: 1,
@@ -162,8 +174,10 @@ export default {
         parentId: [{ required: true, message: "父分类ID不能为空", trigger: "blur" }],
         parentCode: [{ required: true, message: "父分类代码不能为空", trigger: "blur" }],
         categoryCode: [{ required: true, message: "分类代码不能为空", trigger: "blur" }],
-        status: [{ required: true, message: "状态;0-启用，1-停用不能为空", trigger: "blur" }],
-      }
+        status: [{ required: true, message: "状态不能为空", trigger: "blur" }],
+      },
+      // 数据字典
+      statusDictDatas: getDictDatas(DICT_TYPE.COMMON_STATUS)
     };
   },
   created() {
@@ -173,12 +187,25 @@ export default {
     /** 查询列表 */
     getList() {
       this.loading = true;
-      // 执行查询
+      // 执行查询  TODO 分页查询改为按层级查询
       getCategoryPage(this.queryParams).then(response => {
-        this.list = response.data.list;
-        this.total = response.data.total;
+        this.list =this.handleTree(response.data.list, "id");
+
         this.loading = false;
       });
+    },
+    /** 转换分类数据结构 */
+    normalizer(node) {
+      if (node.children && !node.children.length) {
+        delete node.children;
+      }
+      let res={
+        id: node.id,
+        label: node.name,
+        children: node.children
+      }
+      console.log(res)
+      return res;
     },
     /** 取消按钮 */
     cancel() {
@@ -211,10 +238,16 @@ export default {
       this.handleQuery();
     },
     /** 新增按钮操作 */
-    handleAdd() {
+    handleAdd(row) {
       this.reset();
+      if (row !== undefined) {
+        this.form.parentId = row.id;
+      }
       this.open = true;
-      this.title = "添加物料分类";
+      this.title = "添加分类";
+      listSimpleCategories().then(response => {
+        this.categoryOptions = this.handleTree(response.data, "id");
+      });
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -224,6 +257,9 @@ export default {
         this.form = response.data;
         this.open = true;
         this.title = "修改物料分类";
+      });
+      listSimpleCategories().then(response => {
+        this.categoryOptions = this.handleTree(response.data, "id");
       });
     },
     /** 提交按钮 */
@@ -258,6 +294,14 @@ export default {
           this.getList();
           this.$modal.msgSuccess("删除成功");
         }).catch(() => {});
+    },
+    /** 展开/折叠操作 */
+    toggleExpandAll() {
+      this.refreshTable = false;
+      this.isExpandAll = !this.isExpandAll;
+      this.$nextTick(() => {
+        this.refreshTable = true;
+      });
     },
     /** 导出按钮操作 */
     handleExport() {

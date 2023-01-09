@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.plm.item.controller.admin.category;
 
+import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
 import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -84,6 +85,19 @@ public class CategoryController {
         PageResult<CategoryDO> pageResult = categoryService.getCategoryPage(pageVO);
         return success(CategoryConvert.INSTANCE.convertPage(pageResult));
     }
+
+    @GetMapping("/list-all-simple")
+    @ApiOperation(value = "获取物料分类精简信息列表", notes = "只包含被启用的分类，主要用于前端的下拉选项")
+    public CommonResult<List<CategorySimpleRespVO>> getSimpleCategory() {
+        // 获得部门列表，只要开启状态的
+        CategoryListReqVO reqVO = new CategoryListReqVO();
+        reqVO.setStatus(CommonStatusEnum.ENABLE.getStatus());
+        List<CategoryDO> list = categoryService.getSimpleCategorys(reqVO);
+        // 排序后，返回给前端
+        list.sort(Comparator.comparing(CategoryDO::getSort));
+        return success(CategoryConvert.INSTANCE.convertList03(list));
+    }
+
 
     @GetMapping("/export-excel")
     @ApiOperation("导出物料分类 Excel")
