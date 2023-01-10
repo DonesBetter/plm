@@ -19,7 +19,7 @@
     <dependencies>
         <dependency>
             <groupId>cn.iocoder.boot</groupId>
-            <artifactId>yudao-plm-item-api</artifactId>
+            <artifactId>yudao-module-item-api</artifactId>
             <version>${revision}</version>
         </dependency>
 

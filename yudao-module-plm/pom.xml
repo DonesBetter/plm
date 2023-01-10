@@ -9,10 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <modules>
-        <module>yudao-plm-item-api</module>
-        <module>yudao-plm-item-biz</module>
+        <module>yudao-module-item</module>
     </modules>
-    <artifactId>yudao-plm-item</artifactId>
+    <artifactId>yudao-module-plm</artifactId>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
