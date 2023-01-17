@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <modules>
         <module>yudao-module-item</module>
+        <module>yudao-module-document</module>
     </modules>
     <artifactId>yudao-module-plm</artifactId>
     <packaging>pom</packaging>

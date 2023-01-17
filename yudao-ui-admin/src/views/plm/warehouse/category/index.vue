@@ -127,7 +127,7 @@ import Editor from '@/components/Editor'
 import { DICT_TYPE, getDictDatas } from '@/utils/dict'
 
 export default {
-  name: "Category",
+  name: "ICategory",
   components: {
     Editor,
     Treeselect

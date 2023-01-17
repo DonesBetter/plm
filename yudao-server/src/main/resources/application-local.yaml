@@ -43,7 +43,7 @@ spring:
         test-on-return: false
       primary: master
       datasource:
-        master:
+        master: 
           name: ruoyi-vue-pro
           url: jdbc:mysql://${XHOST}:${XPORT}/${spring.datasource.dynamic.datasource.master.name}?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&nullCatalogMeansCurrent=true # MySQL Connector/J 8.X 连接的示例
           username: ${XUSERNAME}
