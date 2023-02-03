@@ -44,14 +44,14 @@ spring:
       primary: master
       datasource:
         master: 
-          name: ruoyi-vue-pro
+          name: plm
           url: jdbc:mysql://${XHOST}:${XPORT}/${spring.datasource.dynamic.datasource.master.name}?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&nullCatalogMeansCurrent=true # MySQL Connector/J 8.X 连接的示例
           username: ${XUSERNAME}
           password: ${XPASSWORD}
         #          username: sa
         #          password: JSm:g(*%lU4ZAkz06cd52KqT3)i1?H7W
         slave: # 模拟从库，可根据自己需要修改
-          name: ruoyi-vue-pro
+          name: plm
           url: jdbc:mysql://${XHOST}:${XPORT}/${spring.datasource.dynamic.datasource.slave.name}?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&nullCatalogMeansCurrent=true # MySQL Connector/J 8.X 连接的示例
           username: ${XUSERNAME}
           password: ${XPASSWORD}
