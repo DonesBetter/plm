@@ -38,14 +38,15 @@ public class CategoryController {
 
     @PostMapping("/create")
     @ApiOperation("创建物料分类")
-    @PreAuthorize("@ss.hasPermission('item:category:create')")
+    @PreAuthorize("@ss.hasPermission('plm:category:create')")
     public CommonResult<Long> createCategory(@Valid @RequestBody CategoryCreateReqVO createReqVO) {
         return success(categoryService.createCategory(createReqVO));
     }
 
+
     @PutMapping("/update")
     @ApiOperation("更新物料分类")
-    @PreAuthorize("@ss.hasPermission('item:category:update')")
+    @PreAuthorize("@ss.hasPermission('plm:category:update')")
     public CommonResult<Boolean> updateCategory(@Valid @RequestBody CategoryUpdateReqVO updateReqVO) {
         categoryService.updateCategory(updateReqVO);
         return success(true);
@@ -54,7 +55,7 @@ public class CategoryController {
     @DeleteMapping("/delete")
     @ApiOperation("删除物料分类")
     @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('item:category:delete')")
+    @PreAuthorize("@ss.hasPermission('plm:category:delete')")
     public CommonResult<Boolean> deleteCategory(@RequestParam("id") Long id) {
         categoryService.deleteCategory(id);
         return success(true);
@@ -63,7 +64,7 @@ public class CategoryController {
     @GetMapping("/get")
     @ApiOperation("获得物料分类")
     @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
-    @PreAuthorize("@ss.hasPermission('item:category:query')")
+    @PreAuthorize("@ss.hasPermission('plm:category:query')")
     public CommonResult<CategoryRespVO> getCategory(@RequestParam("id") Long id) {
         CategoryDO category = categoryService.getCategory(id);
         return success(CategoryConvert.INSTANCE.convert(category));
@@ -72,7 +73,7 @@ public class CategoryController {
     @GetMapping("/list")
     @ApiOperation("获得物料分类列表")
     @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
-    @PreAuthorize("@ss.hasPermission('item:category:query')")
+    @PreAuthorize("@ss.hasPermission('plm:category:query')")
     public CommonResult<List<CategoryRespVO>> getCategoryList(@RequestParam("ids") Collection<Long> ids) {
         List<CategoryDO> list = categoryService.getCategoryList(ids);
         return success(CategoryConvert.INSTANCE.convertList(list));
@@ -80,7 +81,7 @@ public class CategoryController {
 
     @GetMapping("/page")
     @ApiOperation("获得物料分类分页")
-    @PreAuthorize("@ss.hasPermission('item:category:query')")
+    @PreAuthorize("@ss.hasPermission('plm:category:query')")
     public CommonResult<PageResult<CategoryRespVO>> getCategoryPage(@Valid CategoryPageReqVO pageVO) {
         PageResult<CategoryDO> pageResult = categoryService.getCategoryPage(pageVO);
         return success(CategoryConvert.INSTANCE.convertPage(pageResult));
@@ -101,7 +102,7 @@ public class CategoryController {
 
     @GetMapping("/export-excel")
     @ApiOperation("导出物料分类 Excel")
-    @PreAuthorize("@ss.hasPermission('item:category:export')")
+    @PreAuthorize("@ss.hasPermission('plm:category:export')")
     @OperateLog(type = EXPORT)
     public void exportCategoryExcel(@Valid CategoryExportReqVO exportReqVO,
               HttpServletResponse response) throws IOException {
