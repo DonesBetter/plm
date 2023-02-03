@@ -1,4 +1,4 @@
-package cn.iocoder.yudao.module.item.dal.dataobject.category;
+package cn.iocoder.yudao.module.document.dal.dataobject.documentcategory;
 
 import lombok.*;
 import java.util.*;
@@ -8,19 +8,19 @@ import com.baomidou.mybatisplus.annotation.*;
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 
 /**
- * 物料分类 DO
+ * 文档分类 DO
  *
  * @author 洋芋
  */
-@TableName("plm_item_category")
-@KeySequence("plm_item_category_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@TableName("plm_document_category")
+@KeySequence("plm_document_category_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDO extends BaseDO {
+public class DocumentCategoryDO extends BaseDO {
 
     /**
      * id
@@ -58,6 +58,6 @@ public class CategoryDO extends BaseDO {
     /**
      * 状态;0-启用，1-停用
      */
-    private Integer status;
+    private Byte status;
 
 }

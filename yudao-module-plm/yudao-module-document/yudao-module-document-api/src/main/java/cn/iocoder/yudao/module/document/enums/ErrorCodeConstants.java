@@ -8,5 +8,9 @@ import cn.iocoder.yudao.framework.common.exception.ErrorCode;
  * 文档系统，使用 2-002-000-000 段
  */
 public interface ErrorCodeConstants {
-    ErrorCode DOCUMENT_NOT_EXISTS = new ErrorCode(2002000001, "文档不存在");
+    // ========== 文档 2002001000 ==========
+    ErrorCode DOCUMENT_NOT_EXISTS = new ErrorCode(2002001001, "文档不存在");
+
+    // ========== 文档分类 2002002000 ==========
+    ErrorCode DOCUMENT_CATEGORY_NOT_EXISTS = new ErrorCode(2002002001, "文档分类不存在");
 }
