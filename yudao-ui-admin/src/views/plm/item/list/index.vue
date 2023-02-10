@@ -61,9 +61,10 @@
             <el-input v-model="queryParams.picUrl" placeholder="请输入图标" clearable @keyup.enter.native="handleQuery"/>
           </el-form-item>
           <el-form-item label="状态" prop="status">
-            <el-select v-model="queryParams.status" placeholder="请选择状态;0-启用，1-停用" clearable size="small">
-              <el-option label="请选择字典生成" value=""/>
-            </el-select>
+            <el-radio-group v-model="queryParams.status">
+              <el-radio v-for="dict in statusDictDatas" :key="parseInt(dict.value)" :label="parseInt(dict.value)">
+                {{dict.label}}</el-radio>
+            </el-radio-group>
           </el-form-item>
           <el-form-item label="创建时间" prop="createTime">
             <el-date-picker v-model="queryParams.createTime" style="width: 240px" value-format="yyyy-MM-dd HH:mm:ss"
@@ -110,7 +111,7 @@
           <el-table-column label="计量单位" align="center" prop="unit"/>
           <el-table-column label="库存" align="center" prop="stock"/>
           <el-table-column label="图标" align="center" prop="picUrl"/>
-          <el-table-column label="状态;0-启用，1-停用" align="center" prop="status"/>
+          <el-table-column label="状态" align="center" prop="status"/>
           <el-table-column label="创建时间" align="center" prop="createTime" width="180">
             <template v-slot="scope">
               <span>{{ parseTime(scope.row.createTime) }}</span>
@@ -172,9 +173,10 @@
         <el-form-item label="图标" prop="picUrl">
           <el-input v-model="form.picUrl" placeholder="请输入图标"/>
         </el-form-item>
-        <el-form-item label="状态;0-启用，1-停用" prop="status">
+        <el-form-item label="状态" prop="status">
           <el-radio-group v-model="form.status">
-            <el-radio label="1">请选择字典生成</el-radio>
+            <el-radio v-for="dict in statusDictDatas" :key="parseInt(dict.value)" :label="parseInt(dict.value)">
+              {{dict.label}}</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>
@@ -189,6 +191,7 @@
 <script>
 import { createItem, updateItem, deleteItem, getItem, getItemPage, exportItemExcel } from '@/api/plm/item/item'
 import { listSimpleCategories } from '@/api/plm/item/category'
+import { DICT_TYPE, getDictDatas } from '@/utils/dict'
 
 export default {
   name: 'Item',
@@ -244,8 +247,11 @@ export default {
         name: [{ required: true, message: '物料名称不能为空', trigger: 'blur' }],
         categoryId: [{ required: true, message: '物料分类ID不能为空', trigger: 'blur' }],
         categoryCode: [{ required: true, message: '物料分类代码不能为空', trigger: 'blur' }],
-        status: [{ required: true, message: '状态;0-启用，1-停用不能为空', trigger: 'blur' }]
-      }
+        status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
+      },
+
+      // 数据字典
+      statusDictDatas: getDictDatas(DICT_TYPE.COMMON_STATUS)
     }
   },
   created() {

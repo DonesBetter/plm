@@ -93,7 +93,7 @@ public class CategoryController {
         // 获得部门列表，只要开启状态的
         CategoryListReqVO reqVO = new CategoryListReqVO();
         reqVO.setStatus(CommonStatusEnum.ENABLE.getStatus());
-        List<CategoryDO> list = categoryService.getSimpleCategorys(reqVO);
+        List<CategoryDO> list = categoryService.getSimpleCategories(reqVO);
         // 排序后，返回给前端
         list.sort(Comparator.comparing(CategoryDO::getSort));
         return success(CategoryConvert.INSTANCE.convertList03(list));

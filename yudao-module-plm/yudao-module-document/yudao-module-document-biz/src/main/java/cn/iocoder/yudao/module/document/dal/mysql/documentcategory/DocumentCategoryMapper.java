@@ -5,6 +5,7 @@ import java.util.*;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.mybatis.core.query.LambdaQueryWrapperX;
 import cn.iocoder.yudao.framework.mybatis.core.mapper.BaseMapperX;
+import cn.iocoder.yudao.module.document.controller.admin.document.vo.DocumentCategoryListReqVO;
 import cn.iocoder.yudao.module.document.dal.dataobject.documentcategory.DocumentCategoryDO;
 import org.apache.ibatis.annotations.Mapper;
 import cn.iocoder.yudao.module.document.controller.admin.documentcategory.vo.*;
@@ -43,6 +44,12 @@ public interface DocumentCategoryMapper extends BaseMapperX<DocumentCategoryDO> 
                 .eqIfPresent(DocumentCategoryDO::getStatus, reqVO.getStatus())
                 .betweenIfPresent(DocumentCategoryDO::getCreateTime, reqVO.getCreateTime())
                 .orderByDesc(DocumentCategoryDO::getId));
+    }
+
+    default List<DocumentCategoryDO> queryCategories(DocumentCategoryListReqVO reqVO) {
+        return selectList(new LambdaQueryWrapperX<DocumentCategoryDO>()
+                .likeIfPresent(DocumentCategoryDO::getName, reqVO.getName())
+                .eqIfPresent(DocumentCategoryDO::getStatus, reqVO.getStatus()));
     }
 
 }

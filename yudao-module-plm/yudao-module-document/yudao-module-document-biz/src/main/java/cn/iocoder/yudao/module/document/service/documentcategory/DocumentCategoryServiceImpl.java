@@ -1,5 +1,6 @@
 package cn.iocoder.yudao.module.document.service.documentcategory;
 
+import cn.iocoder.yudao.module.document.controller.admin.document.vo.DocumentCategoryListReqVO;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
@@ -77,6 +78,13 @@ public class DocumentCategoryServiceImpl implements DocumentCategoryService {
     @Override
     public List<DocumentCategoryDO> getDocumentCategoryList(DocumentCategoryExportReqVO exportReqVO) {
         return documentCategoryMapper.selectList(exportReqVO);
+    }
+
+    @Override
+    public List<DocumentCategoryDO> getSimpleCategories(DocumentCategoryListReqVO reqVO) {
+
+        return documentCategoryMapper.queryCategories(reqVO);
+
     }
 
 }

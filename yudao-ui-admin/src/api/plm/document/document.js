@@ -52,3 +52,12 @@ export function exportDocumentExcel(query) {
     responseType: 'blob'
   })
 }
+
+// 获取所有分类精简信息列表
+export function listSimpleCategories() {
+  return request({
+    url: '/plm/document-category/list-all-simple',
+    method: 'get'
+  })
+
+}

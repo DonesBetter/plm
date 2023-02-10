@@ -169,7 +169,7 @@ export default {
         parentId: [{ required: true, message: "父分类ID不能为空", trigger: "blur" }],
         parentCode: [{ required: true, message: "父分类代码不能为空", trigger: "blur" }],
         categoryCode: [{ required: true, message: "分类代码不能为空", trigger: "blur" }],
-        status: [{ required: true, message: "状态;0-启用，1-停用不能为空", trigger: "blur" }],
+        status: [{ required: true, message: "状态不能为空", trigger: "blur" }],
       },
       // 数据字典
       statusDictDatas: getDictDatas(DICT_TYPE.COMMON_STATUS)

@@ -4,7 +4,6 @@ import java.util.*;
 import javax.validation.*;
 
 import cn.iocoder.yudao.module.item.controller.admin.category.vo.*;
-import cn.iocoder.yudao.module.item.controller.admin.category.vo.*;
 import cn.iocoder.yudao.module.item.dal.dataobject.category.CategoryDO;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
@@ -69,7 +68,7 @@ public interface CategoryService {
      */
     List<CategoryDO> getCategoryList(CategoryExportReqVO exportReqVO);
 
-    List<CategoryDO> getSimpleCategorys(CategoryListReqVO reqVO);
+    List<CategoryDO> getSimpleCategories(CategoryListReqVO reqVO);
 
     /**
      * 获得所有子物料分类，从缓存中
@@ -78,5 +77,5 @@ public interface CategoryService {
      * @param recursive 是否递归获取所有
      * @return 子物料分类列表
      */
-    List<CategoryDO> getCategorysByParentIdFromCache(Long parentId, boolean recursive);
+    List<CategoryDO> getCategoriesByParentIdFromCache(Long parentId, boolean recursive);
 }

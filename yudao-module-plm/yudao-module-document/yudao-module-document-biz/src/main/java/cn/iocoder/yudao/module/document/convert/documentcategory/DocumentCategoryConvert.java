@@ -4,6 +4,7 @@ import java.util.*;
 
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 
+import cn.iocoder.yudao.module.document.controller.admin.document.vo.DocumentCategorySimpleRespVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import cn.iocoder.yudao.module.document.controller.admin.documentcategory.vo.*;
@@ -31,4 +32,5 @@ public interface DocumentCategoryConvert {
 
     List<DocumentCategoryExcelVO> convertList02(List<DocumentCategoryDO> list);
 
+    List<DocumentCategorySimpleRespVO> convertList03(List<DocumentCategoryDO> list);
 }

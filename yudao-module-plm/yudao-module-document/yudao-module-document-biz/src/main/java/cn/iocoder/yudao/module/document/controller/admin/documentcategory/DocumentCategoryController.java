@@ -1,9 +1,12 @@
 package cn.iocoder.yudao.module.document.controller.admin.documentcategory;
 
+import cn.iocoder.yudao.framework.common.enums.CommonStatusEnum;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
+import cn.iocoder.yudao.module.document.controller.admin.document.vo.DocumentCategoryListReqVO;
+import cn.iocoder.yudao.module.document.controller.admin.document.vo.DocumentCategorySimpleRespVO;
 import cn.iocoder.yudao.module.document.controller.admin.documentcategory.vo.DocumentCategoryCreateReqVO;
 import cn.iocoder.yudao.module.document.controller.admin.documentcategory.vo.DocumentCategoryRespVO;
 import cn.iocoder.yudao.module.document.controller.admin.documentcategory.vo.DocumentCategoryUpdateReqVO;
@@ -11,7 +14,6 @@ import cn.iocoder.yudao.module.document.service.documentcategory.DocumentCategor
 import cn.iocoder.yudao.module.document.controller.admin.documentcategory.vo.*;
 import cn.iocoder.yudao.module.document.convert.documentcategory.DocumentCategoryConvert;
 import cn.iocoder.yudao.module.document.dal.dataobject.documentcategory.DocumentCategoryDO;
-import cn.iocoder.yudao.module.document.service.documentcategory.DocumentCategoryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
@@ -98,6 +101,18 @@ public class DocumentCategoryController {
         // 导出 Excel
         List<DocumentCategoryExcelVO> datas = DocumentCategoryConvert.INSTANCE.convertList02(list);
         ExcelUtils.write(response, "文档分类.xls", "数据", DocumentCategoryExcelVO.class, datas);
+    }
+
+    @GetMapping("/list-all-simple")
+    @ApiOperation(value = "获取分类精简信息列表", notes = "只包含被启用的分类，主要用于前端的下拉选项")
+    public CommonResult<List<DocumentCategorySimpleRespVO>> getSimpleCategory() {
+        // 获得文件分类列表，只要开启状态的
+        DocumentCategoryListReqVO reqVO = new DocumentCategoryListReqVO();
+        reqVO.setStatus(CommonStatusEnum.ENABLE.getStatus());
+        List<DocumentCategoryDO> list = documentCategoryService.getSimpleCategories(reqVO);
+        // 排序后，返回给前端
+        list.sort(Comparator.comparing(DocumentCategoryDO::getSort));
+        return success(DocumentCategoryConvert.INSTANCE.convertList03(list));
     }
 
 }

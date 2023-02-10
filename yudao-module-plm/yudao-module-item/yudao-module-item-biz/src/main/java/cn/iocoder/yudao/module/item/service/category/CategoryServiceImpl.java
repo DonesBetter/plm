@@ -6,7 +6,6 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.tenant.core.context.TenantContextHolder;
 import cn.iocoder.yudao.module.item.controller.admin.category.vo.*;
 import cn.iocoder.yudao.module.item.convert.category.CategoryConvert;
-import cn.iocoder.yudao.module.item.controller.admin.category.vo.*;
 import cn.iocoder.yudao.module.item.dal.dataobject.category.CategoryDO;
 import cn.iocoder.yudao.module.item.dal.mysql.category.CategoryMapper;
 import cn.iocoder.yudao.module.item.enums.category.CategoryIdEnum;
@@ -106,18 +105,18 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDO> getSimpleCategorys(CategoryListReqVO reqVO) {
+    public List<CategoryDO> getSimpleCategories(CategoryListReqVO reqVO) {
         return categoryMapper.selectList(reqVO);
     }
 
     @Override
-    public List<CategoryDO> getCategorysByParentIdFromCache(Long parentId, boolean recursive) {
+    public List<CategoryDO> getCategoriesByParentIdFromCache(Long parentId, boolean recursive) {
         if (parentId == null) {
             return Collections.emptyList();
         }
         List<CategoryDO> result = new ArrayList<>(); // TODO 芋艿：待优化，新增缓存，避免每次遍历的计算
         // 递归，简单粗暴
-        this.getCategorysByParentIdFromCache(result, parentId,
+        this.getCategoriesByParentIdFromCache(result, parentId,
                 recursive ? Integer.MAX_VALUE : 1, // 如果递归获取，则无限；否则，只递归 1 次
                 parentCategoryCache);
         return result;
@@ -132,7 +131,7 @@ public class CategoryServiceImpl implements CategoryService {
      * @param recursiveCount 递归次数
      * @param parentDeptMap  父部门 Map，使用缓存，避免变化
      */
-    private void getCategorysByParentIdFromCache(List<CategoryDO> result, Long parentId, int recursiveCount,
+    private void getCategoriesByParentIdFromCache(List<CategoryDO> result, Long parentId, int recursiveCount,
                                                  Multimap<Long, CategoryDO> parentDeptMap) {
         // 递归次数为 0，结束！
         if (recursiveCount == 0) {
@@ -152,7 +151,7 @@ public class CategoryServiceImpl implements CategoryService {
         result.addAll(depts);
 
         // 继续递归
-        depts.forEach(dept -> getCategorysByParentIdFromCache(result, dept.getId(),
+        depts.forEach(dept -> getCategoriesByParentIdFromCache(result, dept.getId(),
                 recursiveCount - 1, parentDeptMap));
     }
 
@@ -194,7 +193,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw exception(CATEGORY_NOT_ENABLE);
         }
         // 父物料分类不能是原来的子物料分类
-        List<CategoryDO> children = this.getCategorysByParentIdFromCache(id, true);
+        List<CategoryDO> children = this.getCategoriesByParentIdFromCache(id, true);
         if (children.stream().anyMatch(category1 -> category1.getId().equals(parentId))) {
             throw exception(CATEGORY_PARENT_IS_CHILD);
         }
