@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 import java.util.Map;
 
 import static cn.hutool.core.util.RandomUtil.randomEle;
-import static cn.iocoder.yudao.framework.common.util.date.DateUtils.buildTime;
+import static cn.iocoder.yudao.framework.common.util.date.LocalDateTimeUtils.buildTime;
 import static cn.iocoder.yudao.framework.common.util.date.LocalDateTimeUtils.buildBetweenTime;
 import static cn.iocoder.yudao.framework.common.util.object.ObjectUtils.cloneIgnoreId;
 import static cn.iocoder.yudao.framework.test.core.util.AssertUtils.assertPojoEquals;
@@ -114,6 +114,20 @@ public class MailLogServiceImplTest extends BaseDbUnitTest {
         assertNotNull(dbLog.getSendTime());
         assertNull(dbLog.getSendMessageId());
         assertEquals("NullPointerException: 测试异常", dbLog.getSendException());
+    }
+
+    @Test
+    public void testGetMailLog() {
+        // mock 数据
+        MailLogDO dbMailLog = randomPojo(MailLogDO.class, o -> o.setTemplateParams(randomTemplateParams()));
+        mailLogMapper.insert(dbMailLog);
+        // 准备参数
+        Long id = dbMailLog.getId();
+
+        // 调用
+        MailLogDO mailLog = mailLogService.getMailLog(id);
+        // 断言
+        assertPojoEquals(dbMailLog, mailLog);
     }
 
     @Test

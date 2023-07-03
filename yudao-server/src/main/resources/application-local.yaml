@@ -43,27 +43,35 @@ spring:
         test-on-return: false
       primary: master
       datasource:
-        master: 
-          name: plm
-          url: jdbc:mysql://${XHOST}:${XPORT}/${spring.datasource.dynamic.datasource.master.name}?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&nullCatalogMeansCurrent=true # MySQL Connector/J 8.X 连接的示例
-          username: ${XUSERNAME}
-          password: ${XPASSWORD}
+        master:
+          name: ruoyi-vue-pro
+          url: jdbc:mysql://127.0.0.1:3306/${spring.datasource.dynamic.datasource.master.name}?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true # MySQL Connector/J 8.X 连接的示例
+          #          url: jdbc:mysql://127.0.0.1:3306/${spring.datasource.dynamic.datasource.master.name}?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=CTT # MySQL Connector/J 5.X 连接的示例
+          #          url: jdbc:postgresql://127.0.0.1:5432/${spring.datasource.dynamic.datasource.slave.name} # PostgreSQL 连接的示例
+          #          url: jdbc:oracle:thin:@127.0.0.1:1521:xe # Oracle 连接的示例
+          #          url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=${spring.datasource.dynamic.datasource.master.name} # SQLServer 连接的示例
+          username: root
+          password: 123456
         #          username: sa
         #          password: JSm:g(*%lU4ZAkz06cd52KqT3)i1?H7W
         slave: # 模拟从库，可根据自己需要修改
-          name: plm
-          url: jdbc:mysql://${XHOST}:${XPORT}/${spring.datasource.dynamic.datasource.slave.name}?allowMultiQueries=true&useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true&nullCatalogMeansCurrent=true # MySQL Connector/J 8.X 连接的示例
-          username: ${XUSERNAME}
-          password: ${XPASSWORD}
-      #          username: sa
-      #          password: JSm:g(*%lU4ZAkz06cd52KqT3)i1?H7W
+          name: ruoyi-vue-pro
+          url: jdbc:mysql://127.0.0.1:3306/${spring.datasource.dynamic.datasource.slave.name}?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true # MySQL Connector/J 8.X 连接的示例
+          #          url: jdbc:mysql://127.0.0.1:3306/${spring.datasource.dynamic.datasource.slave.name}?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=CTT # MySQL Connector/J 5.X 连接的示例
+          #          url: jdbc:postgresql://127.0.0.1:5432/${spring.datasource.dynamic.datasource.slave.name} # PostgreSQL 连接的示例
+          #          url: jdbc:oracle:thin:@127.0.0.1:1521:xe # Oracle 连接的示例
+          #          url: jdbc:sqlserver://127.0.0.1:1433;DatabaseName=${spring.datasource.dynamic.datasource.slave.name} # SQLServer 连接的示例
+          username: root
+          password: 123456
+  #          username: sa
+  #          password: JSm:g(*%lU4ZAkz06cd52KqT3)i1?H7W
 
-      # Redis 配置。Redisson 默认的配置足够使用，一般不需要进行调优
+  # Redis 配置。Redisson 默认的配置足够使用，一般不需要进行调优
   redis:
-    host: ${XHOST} # 地址
+    host: 127.0.0.1 # 地址
     port: 6379 # 端口
     database: 0 # 数据库索引
-    password: ${XPASSWORD} # 密码，建议生产环境开启
+#    password: dev # 密码，建议生产环境开启
 
 --- #################### 定时任务相关配置 ####################
 
@@ -144,12 +152,13 @@ logging:
     cn.iocoder.yudao.module.bpm.dal.mysql: INFO
     cn.iocoder.yudao.module.infra.dal.mysql: INFO
     cn.iocoder.yudao.module.infra.dal.mysql.job.JobLogMapper: INFO # 配置 JobLogMapper 的日志级别为 info
-    cn.iocoder.yudao.module.pay.dal.mysql: INFO
-    cn.iocoder.yudao.module.system.dal.mysql: INFO
-    cn.iocoder.yudao.module.tool.dal.mysql: INFO
-    cn.iocoder.yudao.module.member.dal.mysql: INFO
-    cn.iocoder.yudao.module.trade.dal.mysql: INFO
-    cn.iocoder.yudao.module.promotion.dal.mysql: INFO
+    cn.iocoder.yudao.module.pay.dal.mysql: debug
+    cn.iocoder.yudao.module.pay.dal.mysql.notify.PayNotifyTaskMapper: INFO # 配置 JobLogMapper 的日志级别为 info
+    cn.iocoder.yudao.module.system.dal.mysql: debug
+    cn.iocoder.yudao.module.tool.dal.mysql: debug
+    cn.iocoder.yudao.module.member.dal.mysql: debug
+    cn.iocoder.yudao.module.trade.dal.mysql: debug
+    cn.iocoder.yudao.module.promotion.dal.mysql: debug
 
 debug: false
 

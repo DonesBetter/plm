@@ -50,7 +50,7 @@ public interface ErrorCodeConstants {
     ErrorCode DEPT_EXITS_CHILDREN = new ErrorCode(1002004003, "存在子部门，无法删除");
     ErrorCode DEPT_PARENT_ERROR = new ErrorCode(1002004004, "不能设置自己为父部门");
     ErrorCode DEPT_EXISTS_USER = new ErrorCode(1002004005, "部门中存在员工，无法删除");
-    ErrorCode DEPT_NOT_ENABLE = new ErrorCode(1002004006, "部门不处于开启状态，不允许选择");
+    ErrorCode DEPT_NOT_ENABLE = new ErrorCode(1002004006, "部门({})不处于开启状态，不允许选择");
     ErrorCode DEPT_PARENT_IS_CHILD = new ErrorCode(1002004007, "不能设置自己的子部门为父部门");
 
     // ========== 岗位模块 1002005000 ==========
@@ -103,6 +103,7 @@ public interface ErrorCodeConstants {
     ErrorCode TENANT_DISABLE = new ErrorCode(1002015001, "名字为【{}】的租户已被禁用");
     ErrorCode TENANT_EXPIRE = new ErrorCode(1002015002, "名字为【{}】的租户已过期");
     ErrorCode TENANT_CAN_NOT_UPDATE_SYSTEM = new ErrorCode(1002015003, "系统租户不能进行修改、删除等操作！");
+    ErrorCode TENANT_NAME_DUPLICATE = new ErrorCode(1002015004, "名字为【{}】的租户已存在");
 
     // ========== 租户套餐 1002016000 ==========
     ErrorCode TENANT_PACKAGE_NOT_EXISTS = new ErrorCode(1002016000, "租户套餐不存在");
