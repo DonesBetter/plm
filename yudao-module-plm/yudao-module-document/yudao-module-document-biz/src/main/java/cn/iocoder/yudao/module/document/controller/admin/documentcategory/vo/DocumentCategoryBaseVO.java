@@ -4,7 +4,7 @@ import lombok.*;
 import java.util.*;
 import java.time.LocalDateTime;
 import java.time.LocalDateTime;
-import io.swagger.annotations.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 
 /**
@@ -14,31 +14,31 @@ import javax.validation.constraints.*;
 @Data
 public class DocumentCategoryBaseVO {
 
-    @ApiModelProperty(value = "父分类ID", required = true, example = "21983")
+    @Schema(description ="父分类ID", required = true, example = "21983")
     @NotNull(message = "父分类ID不能为空")
     private Long parentId;
 
-    @ApiModelProperty(value = "父分类代码", required = true)
+    @Schema(description ="父分类代码", required = true)
     @NotNull(message = "父分类代码不能为空")
     private String parentCode;
 
-    @ApiModelProperty(value = "分类代码", required = true)
+    @Schema(description ="分类代码", required = true)
     @NotNull(message = "分类代码不能为空")
     private String categoryCode;
 
-    @ApiModelProperty(value = "分类名称", example = "王五")
+    @Schema(description ="分类名称", example = "王五")
     private String name;
 
-    @ApiModelProperty(value = "描述", example = "你猜")
+    @Schema(description ="描述", example = "你猜")
     private String description;
 
-    @ApiModelProperty(value = "图标", example = "https://www.iocoder.cn")
+    @Schema(description ="图标", example = "https://www.iocoder.cn")
     private String picUrl;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(description ="排序")
     private String sort;
 
-    @ApiModelProperty(value = "状态;0-启用，1-停用", required = true, example = "2")
+    @Schema(description ="状态;0-启用，1-停用", required = true, example = "2")
     @NotNull(message = "状态;0-启用，1-停用不能为空")
     private Byte status;
 

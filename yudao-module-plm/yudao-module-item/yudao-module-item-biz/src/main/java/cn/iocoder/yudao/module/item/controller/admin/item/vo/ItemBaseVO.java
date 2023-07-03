@@ -1,6 +1,6 @@
 package cn.iocoder.yudao.module.item.controller.admin.item.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -13,45 +13,45 @@ import java.math.BigDecimal;
 @Data
 public class ItemBaseVO {
 
-    @ApiModelProperty(value = "物料编码", required = true)
+    @Schema(description ="物料编码", required = true)
     @NotNull(message = "物料编码不能为空")
     private String itemCode;
 
-    @ApiModelProperty(value = "物料版本", required = true)
+    @Schema(description ="物料版本", required = true)
     @NotNull(message = "物料版本不能为空")
     private String version;
 
-    @ApiModelProperty(value = "物料名称", required = true)
+    @Schema(description ="物料名称", required = true)
     @NotNull(message = "物料名称不能为空")
     private String name;
 
-    @ApiModelProperty(value = "物料分类ID", required = true)
+    @Schema(description ="物料分类ID", required = true)
     @NotNull(message = "物料分类ID不能为空")
     private Long categoryId;
 
-    @ApiModelProperty(value = "物料分类代码", required = true)
+    @Schema(description ="物料分类代码", required = true)
     @NotNull(message = "物料分类代码不能为空")
     private String categoryCode;
 
-    @ApiModelProperty(value = "材料")
+    @Schema(description ="材料")
     private String material;
 
-    @ApiModelProperty(value = "成本")
+    @Schema(description ="成本")
     private BigDecimal cost;
 
-    @ApiModelProperty(value = "重量")
+    @Schema(description ="重量")
     private BigDecimal weight;
 
-    @ApiModelProperty(value = "计量单位")
+    @Schema(description ="计量单位")
     private String unit;
 
-    @ApiModelProperty(value = "库存")
+    @Schema(description ="库存")
     private BigDecimal stock;
 
-    @ApiModelProperty(value = "图标")
+    @Schema(description ="图标")
     private String picUrl;
 
-    @ApiModelProperty(value = "状态;0-启用，1-停用", required = true)
+    @Schema(description ="状态;0-启用，1-停用", required = true)
     @NotNull(message = "状态;0-启用，1-停用不能为空")
     private Integer status;
 

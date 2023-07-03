@@ -14,9 +14,8 @@ import cn.iocoder.yudao.module.document.service.documentcategory.DocumentCategor
 import cn.iocoder.yudao.module.document.controller.admin.documentcategory.vo.*;
 import cn.iocoder.yudao.module.document.convert.documentcategory.DocumentCategoryConvert;
 import cn.iocoder.yudao.module.document.dal.dataobject.documentcategory.DocumentCategoryDO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +31,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Api(tags = "管理后台 - 文档分类")
+@Tag(name = "管理后台 - 文档分类")
 @RestController
 @RequestMapping("/plm/document-category")
 @Validated
@@ -42,14 +41,14 @@ public class DocumentCategoryController {
     private DocumentCategoryService documentCategoryService;
 
     @PostMapping("/create")
-    @ApiOperation("创建文档分类")
+    @Operation(summary = "创建文档分类")
     @PreAuthorize("@ss.hasPermission('plm:document-category:create')")
     public CommonResult<Long> createDocumentCategory(@Valid @RequestBody DocumentCategoryCreateReqVO createReqVO) {
         return success(documentCategoryService.createDocumentCategory(createReqVO));
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新文档分类")
+    @Operation(summary = "更新文档分类")
     @PreAuthorize("@ss.hasPermission('plm:document-category:update')")
     public CommonResult<Boolean> updateDocumentCategory(@Valid @RequestBody DocumentCategoryUpdateReqVO updateReqVO) {
         documentCategoryService.updateDocumentCategory(updateReqVO);
@@ -57,8 +56,7 @@ public class DocumentCategoryController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("删除文档分类")
-    @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
+    @Operation(summary = "删除文档分类")
     @PreAuthorize("@ss.hasPermission('plm:document-category:delete')")
     public CommonResult<Boolean> deleteDocumentCategory(@RequestParam("id") Long id) {
         documentCategoryService.deleteDocumentCategory(id);
@@ -66,8 +64,7 @@ public class DocumentCategoryController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获得文档分类")
-    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
+    @Operation(summary = "获得文档分类")
     @PreAuthorize("@ss.hasPermission('plm:document-category:query')")
     public CommonResult<DocumentCategoryRespVO> getDocumentCategory(@RequestParam("id") Long id) {
         DocumentCategoryDO documentCategory = documentCategoryService.getDocumentCategory(id);
@@ -75,8 +72,7 @@ public class DocumentCategoryController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获得文档分类列表")
-    @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
+    @Operation(summary = "获得文档分类列表")
     @PreAuthorize("@ss.hasPermission('plm:document-category:query')")
     public CommonResult<List<DocumentCategoryRespVO>> getDocumentCategoryList(@RequestParam("ids") Collection<Long> ids) {
         List<DocumentCategoryDO> list = documentCategoryService.getDocumentCategoryList(ids);
@@ -84,7 +80,7 @@ public class DocumentCategoryController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得文档分类分页")
+    @Operation(summary = "获得文档分类分页")
     @PreAuthorize("@ss.hasPermission('plm:document-category:query')")
     public CommonResult<PageResult<DocumentCategoryRespVO>> getDocumentCategoryPage(@Valid DocumentCategoryPageReqVO pageVO) {
         PageResult<DocumentCategoryDO> pageResult = documentCategoryService.getDocumentCategoryPage(pageVO);
@@ -92,11 +88,11 @@ public class DocumentCategoryController {
     }
 
     @GetMapping("/export-excel")
-    @ApiOperation("导出文档分类 Excel")
+    @Operation(summary = "导出文档分类 Excel")
     @PreAuthorize("@ss.hasPermission('plm:document-category:export')")
     @OperateLog(type = EXPORT)
     public void exportDocumentCategoryExcel(@Valid DocumentCategoryExportReqVO exportReqVO,
-              HttpServletResponse response) throws IOException {
+                                            HttpServletResponse response) throws IOException {
         List<DocumentCategoryDO> list = documentCategoryService.getDocumentCategoryList(exportReqVO);
         // 导出 Excel
         List<DocumentCategoryExcelVO> datas = DocumentCategoryConvert.INSTANCE.convertList02(list);
@@ -104,7 +100,7 @@ public class DocumentCategoryController {
     }
 
     @GetMapping("/list-all-simple")
-    @ApiOperation(value = "获取分类精简信息列表", notes = "只包含被启用的分类，主要用于前端的下拉选项")
+    @Operation(summary ="获取分类精简信息列表", description = "只包含被启用的分类，主要用于前端的下拉选项")
     public CommonResult<List<DocumentCategorySimpleRespVO>> getSimpleCategory() {
         // 获得文件分类列表，只要开启状态的
         DocumentCategoryListReqVO reqVO = new DocumentCategoryListReqVO();

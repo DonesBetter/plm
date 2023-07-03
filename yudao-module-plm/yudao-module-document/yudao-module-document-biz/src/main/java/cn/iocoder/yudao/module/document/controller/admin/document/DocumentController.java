@@ -1,32 +1,30 @@
 package cn.iocoder.yudao.module.document.controller.admin.document;
 
-import org.springframework.web.bind.annotation.*;
-import javax.annotation.Resource;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.security.access.prepost.PreAuthorize;
-import io.swagger.annotations.*;
-
-import javax.validation.constraints.*;
-import javax.validation.*;
-import javax.servlet.http.*;
-import java.util.*;
-import java.io.IOException;
-
-import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
-import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
-
+import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.framework.excel.core.util.ExcelUtils;
-
 import cn.iocoder.yudao.framework.operatelog.core.annotations.OperateLog;
-import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.*;
-
 import cn.iocoder.yudao.module.document.controller.admin.document.vo.*;
-import cn.iocoder.yudao.module.document.dal.dataobject.document.DocumentDO;
 import cn.iocoder.yudao.module.document.convert.document.DocumentConvert;
+import cn.iocoder.yudao.module.document.dal.dataobject.document.DocumentDO;
 import cn.iocoder.yudao.module.document.service.document.DocumentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "管理后台 - 文档")
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+
+import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
+import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
+
+@Tag(name  = "管理后台 - 文档")
 @RestController
 @RequestMapping("/plm/document")
 @Validated
@@ -36,14 +34,14 @@ public class DocumentController {
     private DocumentService documentService;
 
     @PostMapping("/create")
-    @ApiOperation("创建文档")
+    @Operation(summary ="创建文档")
     @PreAuthorize("@ss.hasPermission('plm:document:create')")
     public CommonResult<Long> createDocument(@Valid @RequestBody DocumentCreateReqVO createReqVO) {
         return success(documentService.createDocument(createReqVO));
     }
 
     @PutMapping("/update")
-    @ApiOperation("更新文档")
+    @Operation(summary ="更新文档")
     @PreAuthorize("@ss.hasPermission('plm:document:update')")
     public CommonResult<Boolean> updateDocument(@Valid @RequestBody DocumentUpdateReqVO updateReqVO) {
         documentService.updateDocument(updateReqVO);
@@ -51,8 +49,7 @@ public class DocumentController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("删除文档")
-    @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
+    @Operation(summary ="删除文档")
     @PreAuthorize("@ss.hasPermission('plm:document:delete')")
     public CommonResult<Boolean> deleteDocument(@RequestParam("id") Long id) {
         documentService.deleteDocument(id);
@@ -60,8 +57,7 @@ public class DocumentController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获得文档")
-    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
+    @Operation(summary ="获得文档")
     @PreAuthorize("@ss.hasPermission('plm:document:query')")
     public CommonResult<DocumentRespVO> getDocument(@RequestParam("id") Long id) {
         DocumentDO document = documentService.getDocument(id);
@@ -69,8 +65,7 @@ public class DocumentController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获得文档列表")
-    @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
+    @Operation(summary ="获得文档列表")
     @PreAuthorize("@ss.hasPermission('plm:document:query')")
     public CommonResult<List<DocumentRespVO>> getDocumentList(@RequestParam("ids") Collection<Long> ids) {
         List<DocumentDO> list = documentService.getDocumentList(ids);
@@ -78,7 +73,7 @@ public class DocumentController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得文档分页")
+    @Operation(summary ="获得文档分页")
     @PreAuthorize("@ss.hasPermission('plm:document:query')")
     public CommonResult<PageResult<DocumentRespVO>> getDocumentPage(@Valid DocumentPageReqVO pageVO) {
         PageResult<DocumentDO> pageResult = documentService.getDocumentPage(pageVO);
@@ -86,7 +81,7 @@ public class DocumentController {
     }
 
     @GetMapping("/export-excel")
-    @ApiOperation("导出文档 Excel")
+    @Operation(summary ="导出文档 Excel")
     @PreAuthorize("@ss.hasPermission('plm:document:export')")
     @OperateLog(type = EXPORT)
     public void exportDocumentExcel(@Valid DocumentExportReqVO exportReqVO,

@@ -4,54 +4,57 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.*;
-import io.swagger.annotations.*;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import cn.iocoder.yudao.framework.common.pojo.PageParam;
+
 import java.time.LocalDateTime;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-@ApiModel(value = "管理后台 - 物料 Excel 导出 Request VO", description = "参数和 ItemPageReqVO 是一致的")
+@Schema(description = "管理后台 - 物料 Excel 导出 Request VO")
 @Data
 public class ItemExportReqVO {
 
-    @ApiModelProperty(value = "物料编码")
+    @Schema(description = "物料编码")
     private String itemCode;
 
-    @ApiModelProperty(value = "物料版本")
+    @Schema(description = "物料版本")
     private String version;
 
-    @ApiModelProperty(value = "物料名称")
+    @Schema(description = "物料名称")
     private String name;
 
-    @ApiModelProperty(value = "物料分类ID")
+    @Schema(description = "物料分类ID")
     private Long categoryId;
 
-    @ApiModelProperty(value = "物料分类代码")
+    @Schema(description = "物料分类代码")
     private String categoryCode;
 
-    @ApiModelProperty(value = "材料")
+    @Schema(description = "材料")
     private String material;
 
-    @ApiModelProperty(value = "成本")
+    @Schema(description = "成本")
     private BigDecimal cost;
 
-    @ApiModelProperty(value = "重量")
+    @Schema(description = "重量")
     private BigDecimal weight;
 
-    @ApiModelProperty(value = "计量单位")
+    @Schema(description = "计量单位")
     private String unit;
 
-    @ApiModelProperty(value = "库存")
+    @Schema(description = "库存")
     private BigDecimal stock;
 
-    @ApiModelProperty(value = "图标")
+    @Schema(description = "图标")
     private String picUrl;
 
-    @ApiModelProperty(value = "状态;0-启用，1-停用")
+    @Schema(description = "状态;0-启用，1-停用")
     private Boolean status;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private LocalDateTime[] createTime;
 

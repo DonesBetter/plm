@@ -9,9 +9,8 @@ import cn.iocoder.yudao.module.item.controller.admin.category.vo.*;
 import cn.iocoder.yudao.module.item.convert.category.CategoryConvert;
 import cn.iocoder.yudao.module.item.dal.dataobject.category.CategoryDO;
 import cn.iocoder.yudao.module.item.service.category.CategoryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Api(tags = "管理后台 - 物料分类")
+@Tag(name = "管理后台 - 物料分类")
 @RestController
 @RequestMapping("/item/category")
 @Validated
@@ -37,7 +36,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/create")
-    @ApiOperation("创建物料分类")
+    @Operation(summary ="创建物料分类")
     @PreAuthorize("@ss.hasPermission('plm:category:create')")
     public CommonResult<Long> createCategory(@Valid @RequestBody CategoryCreateReqVO createReqVO) {
         return success(categoryService.createCategory(createReqVO));
@@ -45,7 +44,7 @@ public class CategoryController {
 
 
     @PutMapping("/update")
-    @ApiOperation("更新物料分类")
+    @Operation(summary ="更新物料分类")
     @PreAuthorize("@ss.hasPermission('plm:category:update')")
     public CommonResult<Boolean> updateCategory(@Valid @RequestBody CategoryUpdateReqVO updateReqVO) {
         categoryService.updateCategory(updateReqVO);
@@ -53,8 +52,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/delete")
-    @ApiOperation("删除物料分类")
-    @ApiImplicitParam(name = "id", value = "编号", required = true, dataTypeClass = Long.class)
+    @Operation(summary ="删除物料分类")
     @PreAuthorize("@ss.hasPermission('plm:category:delete')")
     public CommonResult<Boolean> deleteCategory(@RequestParam("id") Long id) {
         categoryService.deleteCategory(id);
@@ -62,8 +60,7 @@ public class CategoryController {
     }
 
     @GetMapping("/get")
-    @ApiOperation("获得物料分类")
-    @ApiImplicitParam(name = "id", value = "编号", required = true, example = "1024", dataTypeClass = Long.class)
+    @Operation(summary ="获得物料分类")
     @PreAuthorize("@ss.hasPermission('plm:category:query')")
     public CommonResult<CategoryRespVO> getCategory(@RequestParam("id") Long id) {
         CategoryDO category = categoryService.getCategory(id);
@@ -71,8 +68,7 @@ public class CategoryController {
     }
 
     @GetMapping("/list")
-    @ApiOperation("获得物料分类列表")
-    @ApiImplicitParam(name = "ids", value = "编号列表", required = true, example = "1024,2048", dataTypeClass = List.class)
+    @Operation(summary ="获得物料分类列表")
     @PreAuthorize("@ss.hasPermission('plm:category:query')")
     public CommonResult<List<CategoryRespVO>> getCategoryList(@RequestParam("ids") Collection<Long> ids) {
         List<CategoryDO> list = categoryService.getCategoryList(ids);
@@ -80,7 +76,7 @@ public class CategoryController {
     }
 
     @GetMapping("/page")
-    @ApiOperation("获得物料分类分页")
+    @Operation(summary ="获得物料分类分页")
     @PreAuthorize("@ss.hasPermission('plm:category:query')")
     public CommonResult<PageResult<CategoryRespVO>> getCategoryPage(@Valid CategoryPageReqVO pageVO) {
         PageResult<CategoryDO> pageResult = categoryService.getCategoryPage(pageVO);
@@ -88,7 +84,7 @@ public class CategoryController {
     }
 
     @GetMapping("/list-all-simple")
-    @ApiOperation(value = "获取物料分类精简信息列表", notes = "只包含被启用的分类，主要用于前端的下拉选项")
+    @Operation(summary = "获取物料分类精简信息列表", description = "只包含被启用的分类，主要用于前端的下拉选项")
     public CommonResult<List<CategorySimpleRespVO>> getSimpleCategory() {
         // 获得部门列表，只要开启状态的
         CategoryListReqVO reqVO = new CategoryListReqVO();
@@ -101,7 +97,7 @@ public class CategoryController {
 
 
     @GetMapping("/export-excel")
-    @ApiOperation("导出物料分类 Excel")
+    @Operation(summary ="导出物料分类 Excel")
     @PreAuthorize("@ss.hasPermission('plm:category:export')")
     @OperateLog(type = EXPORT)
     public void exportCategoryExcel(@Valid CategoryExportReqVO exportReqVO,

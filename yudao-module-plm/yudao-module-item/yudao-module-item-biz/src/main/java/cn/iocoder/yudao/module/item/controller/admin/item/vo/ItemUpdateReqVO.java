@@ -1,16 +1,19 @@
 package cn.iocoder.yudao.module.item.controller.admin.item.vo;
 
-import lombok.*;
-import io.swagger.annotations.*;
-import javax.validation.constraints.*;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-@ApiModel("管理后台 - 物料更新 Request VO")
+import javax.validation.constraints.NotNull;
+
+@Schema(description ="管理后台 - 物料更新 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class ItemUpdateReqVO extends ItemBaseVO {
 
-    @ApiModelProperty(value = "id", required = true)
+    @Schema(description ="id", required = true)
     @NotNull(message = "id不能为空")
     private Long id;
 
