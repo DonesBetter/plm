@@ -8,7 +8,7 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-@Schema(description ="管理后台 - 物料分类 Response VO")
+@Schema(description ="plm - 物料分类 Response VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

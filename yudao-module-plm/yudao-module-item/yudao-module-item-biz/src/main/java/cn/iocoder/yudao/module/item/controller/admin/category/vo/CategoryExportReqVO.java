@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import static cn.iocoder.yudao.framework.common.util.date.DateUtils.FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND;
 
-@Schema(description = "管理后台 - 物料分类 Excel 导出 Request VO")
+@Schema(description = "plm - 物料分类 Excel 导出 Request VO")
 @Data
 public class CategoryExportReqVO {
 

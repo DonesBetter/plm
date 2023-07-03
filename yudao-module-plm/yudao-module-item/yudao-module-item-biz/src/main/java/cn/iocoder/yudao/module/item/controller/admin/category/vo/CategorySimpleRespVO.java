@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Schema(description ="管理后台 - 物料分类精简信息 Response VO")
+@Schema(description ="plm - 物料分类精简信息 Response VO")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

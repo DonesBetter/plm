@@ -1,142 +1,28 @@
--- -------------
--- 物料管理菜单
--- -------------
--- 菜单 SQL
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料管理', '', 2, 0, 1254,
-        'item', '', 'plm/warehouse/item/index.vue', 0);
+UPDATE `plm`.`system_menu` SET `name` = 'PLM', `permission` = '', `type` = 1, `sort` = 0, `parent_id` = 0, `path` = '/plm', `icon` = 'bug', `component` = NULL, `component_name` = NULL, `status` = 0, `visible` = b'1', `keep_alive` = b'1', `always_show` = b'1', `creator` = '1', `create_time` = '2022-04-23 01:03:15', `updater` = '1', `update_time` = '2023-07-03 14:49:27', `deleted` = b'0' WHERE `id` = 1254;
 
--- 按钮父菜单ID
--- 暂时只支持 MySQL。如果你是 Oracle、PostgreSQL、SQLServer 的话，需要手动修改 @parentId 的部分的代码
-SELECT @parentId := LAST_INSERT_ID();
-
--- 按钮 SQL
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料查询', 'plm:item:query', 3, 1, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料创建', 'plm:item:create', 3, 2, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料更新', 'plm:item:update', 3, 3, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料删除', 'plm:item:delete', 3, 4, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料导出', 'plm:item:export', 3, 5, @parentId,
-        '', '', '', 0);
-
--- -------------
--- 物料分类菜单
--- -------------
--- 菜单 SQL
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料分类管理', '', 2, 0, 2165,
-        'category', '', 'plm/warehouse/category/index.vue', 0);
-
--- 按钮父菜单ID
--- 暂时只支持 MySQL。如果你是 Oracle、PostgreSQL、SQLServer 的话，需要手动修改 @parentId 的部分的代码
-SELECT @parentId := LAST_INSERT_ID();
-
--- 按钮 SQL
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料分类查询', 'plm:category:query', 3, 1, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料分类创建', 'plm:category:create', 3, 2, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料分类更新', 'plm:category:update', 3, 3, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料分类删除', 'plm:category:delete', 3, 4, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('物料分类导出', 'plm:category:export', 3, 5, @parentId,
-        '', '', '', 0);
-
--- -------------
--- 文档管理菜单
--- -------------
--- 菜单 SQL
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档管理', '', 2, 0, 1254,
-        'document', '', 'plm/document/index.vue', 0);
--- 按钮父菜单ID
--- 暂时只支持 MySQL。如果你是 Oracle、PostgreSQL、SQLServer 的话，需要手动修改 @parentId 的部分的代码
-SELECT @parentId := LAST_INSERT_ID();
-
--- 按钮 SQL
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档查询', 'plm:document:query', 3, 1, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档创建', 'plm:document:create', 3, 2, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档更新', 'plm:document:update', 3, 3, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档删除', 'plm:document:delete', 3, 4, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档导出', 'plm:document:export', 3, 5, @parentId,
-        '', '', '', 0);
-
-
--- -------------
--- 文档分类菜单
--- -------------
--- 菜单 SQL
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档分类管理', '', 2, 0, 2172,
-        'document-category', '', 'plm/document/category/index.vue', 0);
-
--- 按钮父菜单ID
--- 暂时只支持 MySQL。如果你是 Oracle、PostgreSQL、SQLServer 的话，需要手动修改 @parentId 的部分的代码
-SELECT @parentId := LAST_INSERT_ID();
-
--- 按钮 SQL
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档分类查询', 'plm:document-category:query', 3, 1, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档分类创建', 'plm:document-category:create', 3, 2, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档分类更新', 'plm:document-category:update', 3, 3, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档分类删除', 'plm:document-category:delete', 3, 4, @parentId,
-        '', '', '', 0);
-INSERT INTO system_menu(name, permission, type, sort, parent_id,
-                        path, icon, component, status)
-VALUES ('文档分类导出', 'plm:document-category:export', 3, 5, @parentId,
-        '', '', '', 0);
-
-
-
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2162, '物料管理', '', 1, 0, 1254, 'item', '', 'plm/item/list/index.vue', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:11:31', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2163, '物料查询', 'plm:item:query', 3, 1, 2186, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:10:55', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2164, '物料创建', 'plm:item:create', 3, 2, 2186, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:11:02', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2165, '物料更新', 'plm:item:update', 3, 3, 2186, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:11:08', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2166, '物料删除', 'plm:item:delete', 3, 4, 2186, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:11:16', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2167, '物料导出', 'plm:item:export', 3, 5, 2186, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:11:22', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2168, '物料分类管理', '', 2, 1, 2162, 'category', 'cascader', 'plm/item/category/index.vue', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:12:28', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2169, '物料分类查询', 'plm:category:query', 3, 1, 2168, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2170, '物料分类创建', 'plm:category:create', 3, 2, 2168, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2171, '物料分类更新', 'plm:category:update', 3, 3, 2168, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2172, '物料分类删除', 'plm:category:delete', 3, 4, 2168, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2173, '物料分类导出', 'plm:category:export', 3, 5, 2168, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2174, '文档管理', '', 2, 0, 1254, 'document', '', 'plm/document/list/index.vue', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:00:58', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2175, '文档查询', 'plm:document:query', 3, 1, 2187, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:13:33', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2176, '文档创建', 'plm:document:create', 3, 2, 2187, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:13:39', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2177, '文档更新', 'plm:document:update', 3, 3, 2187, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:13:48', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2178, '文档删除', 'plm:document:delete', 3, 4, 2187, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:13:53', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2179, '文档导出', 'plm:document:export', 3, 5, 2187, '', '', '', '', 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:13:59', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2180, '文档分类管理', '', 2, 1, 2174, 'document-category', 'cascader', 'plm/document/category/index.vue', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '1', '2023-07-03 15:14:15', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2181, '文档分类查询', 'plm:document-category:query', 3, 1, 2180, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2182, '文档分类创建', 'plm:document-category:create', 3, 2, 2180, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2183, '文档分类更新', 'plm:document-category:update', 3, 3, 2180, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2184, '文档分类删除', 'plm:document-category:delete', 3, 4, 2180, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2185, '文档分类导出', 'plm:document-category:export', 3, 5, 2180, '', '', '', NULL, 0, b'1', b'1', b'1', '', '2023-07-03 14:02:45', '', '2023-07-03 14:02:45', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2186, '物料列表', '', 2, 0, 2162, 'list', '404', 'plm/item/list/index.vue', NULL, 0, b'1', b'1', b'1', '1', '2023-07-03 15:09:34', '1', '2023-07-03 15:10:37', b'0');
+INSERT INTO `plm`.`system_menu`(`id`, `name`, `permission`, `type`, `sort`, `parent_id`, `path`, `icon`, `component`, `component_name`, `status`, `visible`, `keep_alive`, `always_show`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2187, '文档列表', '', 2, 0, 2174, 'list', 'documentation', 'plm/document/list/index.vue', NULL, 0, b'1', b'1', b'1', '1', '2023-07-03 15:13:20', '1', '2023-07-03 15:15:56', b'0');

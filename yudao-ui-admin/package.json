@@ -5,8 +5,9 @@
   "author": "芋道",
   "license": "MIT",
   "scripts": {
-    "local": "vue-cli-service serve --mode local",
-    "dev": "vue-cli-service serve --mode dev",
+
+    "local": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve --mode local",
+    "dev": "SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve --mode dev",
     "front": "vue-cli-service serve --mode front",
     "build:prod": "vue-cli-service build --mode prod",
     "build:stage": "vue-cli-service build --mode stage",

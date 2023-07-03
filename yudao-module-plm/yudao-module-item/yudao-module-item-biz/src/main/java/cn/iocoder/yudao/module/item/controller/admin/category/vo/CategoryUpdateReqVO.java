@@ -4,7 +4,7 @@ import lombok.*;
 import io.swagger.v3.oas.annotations.media.Schema;
 import javax.validation.constraints.*;
 
-@Schema(description ="管理后台 - 物料分类更新 Request VO")
+@Schema(description ="plm - 物料分类更新 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)

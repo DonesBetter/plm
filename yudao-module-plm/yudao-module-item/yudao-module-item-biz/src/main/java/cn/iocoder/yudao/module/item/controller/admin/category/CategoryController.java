@@ -26,7 +26,7 @@ import java.util.List;
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.operatelog.core.enums.OperateTypeEnum.EXPORT;
 
-@Tag(name = "管理后台 - 物料分类")
+@Tag(name = "plm - 物料分类")
 @RestController
 @RequestMapping("/item/category")
 @Validated
